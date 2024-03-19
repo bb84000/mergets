@@ -10,6 +10,7 @@ object FMergeTS: TFMergeTS
   ClientWidth = 600
   OnActivate = FormActivate
   OnClose = FormClose
+  OnCreate = FormCreate
   LCLVersion = '3.2.0.0'
   object Ltsfiles: TLabel
     Left = 16
@@ -30,7 +31,7 @@ object FMergeTS: TFMergeTS
   object EMergedTS: TEdit
     Left = 128
     Height = 23
-    Top = 40
+    Top = 39
     Width = 430
     AutoSize = False
     TabOrder = 0
@@ -177,7 +178,7 @@ object FMergeTS: TFMergeTS
   end
   object OD1: TOpenDialog
     Title = 'Ouvrir un fichier ts '
-    Filter = 'Fichiers ts, mts|*.ts;*.mts'
+    Filter = 'Fichiers ts, mts|*.ts;*.mts*'
     Options = [ofReadOnly, ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     Left = 512
     Top = 152
