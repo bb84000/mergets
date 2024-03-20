@@ -1,3 +1,9 @@
+//******************************************************************************
+// MergeTs : utility to assemble TS files parts
+// Adapters supported : Strong 8211, Strong 8222 and clones
+// bb - sdtp - march 2024
+//******************************************************************************
+
 unit mergets1;
 
 {$mode objfpc}{$H+}
@@ -6,7 +12,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  Buttons, lazbbutils ;
+  Buttons, ExtCtrls, lazbbutils, lazbbOsVersion, lazbbcontrols;
 
 type
 
@@ -23,14 +29,19 @@ type
   { TFMergeTS }
 
   TFMergeTS = class(TForm)
+    bbOsVer: TbbOsVersion;
     BtnMerge: TButton;
     Btnquit: TButton;
     CBtsfiles: TComboBox;
     EMergedTS: TEdit;
+    LTime: TLabel;
+    TimerTime: TLFPTimer;
+    LVersion: TLabel;
     Ltsfiles: TLabel;
     LMergedTS: TLabel;
     Memo1: TMemo;
     OD1: TOpenDialog;
+    PStatus: TPanel;
     ProgressBar1: TProgressBar;
     ProgressBar2: TProgressBar;
     SD1: TSaveDialog;
@@ -42,9 +53,12 @@ type
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure TimerTimeTimer(Sender: TObject);
     procedure SBTSFilesClick(Sender: TObject);
   private
     UserPath: String;
+    CompileDateTime: TDateTime;
+    version: string;
   public
 
   end;
@@ -63,7 +77,13 @@ begin
   UserPath := GetUserDir;
   CBtsfiles.Text:= '';
   Memo1.Text:='';
+  version := GetVersionInfo.ProductVersion;
+  LVersion.Caption:='Version : '+version+' du '+DateTimeToStr(CompileDateTime);
+  LVersion.Hint:= bbOsVer.VerDetail;
   SD1.InitialDir:= Userpath+'Videos';
+  if not DirectoryExists(SD1.InitialDir) then
+    If Not CreateDir (SD1.InitialDir) Then
+      ShowMessage('Impossible de créer le répertoire "Videos".');
   EMergedTS.Text:= Userpath+'Videos\merged.ts';
 end;
 
@@ -74,7 +94,17 @@ end;
 
 procedure TFMergeTS.FormCreate(Sender: TObject);
 begin
+  CompileDateTime:= StringToTimeDate({$I %DATE%}+' '+{$I %TIME%}, 'yyyy/mm/dd hh:nn:ss');
+  TimerTime.StartTimer;
+end;
 
+procedure TFMergeTS.TimerTimeTimer(Sender: TObject);
+var
+  s: string;
+begin
+  s:= FormatDateTime('dddd dd mmmm yyyy - hh:mm:ss', now);
+  s[1]:= UpCase(S[1]);
+  LTime.Caption:= s;
 end;
 
 procedure TFMergeTS.BtnquitClick(Sender: TObject);
@@ -83,6 +113,8 @@ begin
 end;
 
 procedure TFMergeTS.SBTSFilesClick(Sender: TObject);
+var
+  filext: String;
 begin
   CBtsfiles.Text:= '';
   BtnMerge.Enabled:= false;
@@ -98,7 +130,13 @@ begin
     Memo1.Lines.add('Fichiers à fusioner :');
     Memo1.Lines.add(CBtsfiles.Items.Text);
     BtnMerge.Enabled:= true;
-
+    CBtsfiles.ItemIndex:= 0;
+    CBtsfiles.Items[0];
+    // Change merged file extension  to proper one
+    filext:= ExtractFileExt(CBtsfiles.Items[0]);
+    filext:= LowerCase(Copy(filext, 1, 3));
+    if filext='.mt' then Filext:= '.mts';
+    EMergedTS.text:= ChangeFileExt(EMergedTS.text, filext);
   end;
 end;
 
@@ -118,7 +156,6 @@ var
   mypaq : array [0..191] of byte;   //192 for M2TS
   paqsize: Integer;
   paqofs: Integer;
-  //mypaq : array  of byte;   //192 for M2TS
   mypacket: TSPacket;
   pcrbase, lastpcr: Int64;
   tsread, tspos: Int64;
@@ -126,12 +163,10 @@ var
   tmp: Int64;
   tssize, filesize: Int64;
   beginpos, endpos : Int64;
-  progress1, progress2 : LongInt;
-  //fis: TMemoryStream;
+  progress2 : LongInt;
   fts: TFileStream;
   fos: TFileStream;
   x, y: LongInt;
-  i: integer;
   t: double;
   StartTime, EndTime : TDatetime;
   hms: String;
@@ -146,12 +181,14 @@ begin
     end else
     begin
       DeleteFile (EMergedTS.Text);
-
     end;
   end;
+  Btnquit.Enabled:= false;
+  BtnMerge.Enabled:= false;
+  BtnMergedTS.Enabled:= false;
+  EMergedTS.Enabled:= false;
   StartTime:= Now;
   fos:= TFileStream.Create(EMergedTS.Text, fmCreate);
-  //mypacket:= TSPacket.Create;
   mypacket:= Default(TSPacket);
   pcrbase:= 0;
   lastpcr:= 0;
@@ -178,7 +215,6 @@ begin
     begin
       paqsize:= 192;
       paqofs:= 4;
-      //EMergedTS.text:= ChangeFileExt(EMergedTS.text, '.mts');
     end;
     Application.ProcessMessages ;
   // Now, we process each TS file
@@ -195,7 +231,6 @@ begin
     tssize:= fts.Size div paqsize;
     for x:= 0 to tssize-1 do
     begin
-      //fis.Position:= 0;
       tsread:= fts.Read(mypaq, paqsize);
       if (filtyp=TS) then
       begin
@@ -213,7 +248,7 @@ begin
 	    tmp:= tmp shl 8;		          //tmp <<= 8;
 	    tmp:= tmp or (mypaq[i] and $0FF);	  //tmp |= (mypaq[i] & 0xFF);
 	  end;
-	  mypacket.pcr:= tmp shr 7; //33 bits}
+	  mypacket.pcr:= tmp shr 7; //33 bits  }
           tmp:= (mypaq[paqofs+6] and $0ff)* $1000000+(mypaq[paqofs+7] and $0ff)* $10000+(mypaq[paqofs+8] and $0ff)* $100+(mypaq[paqofs+9] and $0ff) ;
 	  mypacket.pcr:= (tmp*$100+(mypaq[paqofs+10] and $0ff)) shr 7; //33 bits
           pcrbase:= mypacket.pcr;
@@ -257,7 +292,10 @@ begin
   EndTime:= now;
   memo1.Append('Fusion terminée en '+FormatDateTime('[h]:nn:ss.zzz', EndTime-StartTime, [fdoInterval]));
   memo1.Append('Fichier fusionné : '+EMergedTS.Text);
-
+  Btnquit.Enabled:= true;
+  BtnMerge.Enabled:= true;
+  BtnMergedTS.Enabled:= true;
+  EMergedTS.Enabled:= true;
   if assigned(fos) then fos.Free;
 end;
 

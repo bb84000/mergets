@@ -1,12 +1,12 @@
 object FMergeTS: TFMergeTS
   Left = 754
-  Height = 351
+  Height = 374
   Top = 290
   Width = 600
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Fusion de fichiers TS'
-  ClientHeight = 351
+  ClientHeight = 374
   ClientWidth = 600
   OnActivate = FormActivate
   OnClose = FormClose
@@ -173,8 +173,38 @@ object FMergeTS: TFMergeTS
     Top = 12
     Width = 430
     ItemHeight = 15
+    ReadOnly = True
     TabOrder = 6
     Text = 'CBtsfiles'
+  end
+  object PStatus: TPanel
+    Left = 0
+    Height = 34
+    Top = 340
+    Width = 600
+    Align = alBottom
+    BevelInner = bvLowered
+    ClientHeight = 34
+    ClientWidth = 600
+    TabOrder = 7
+    object LVersion: TLabel
+      Left = 8
+      Height = 15
+      Top = 8
+      Width = 208
+      AutoSize = False
+      Caption = 'LVersion'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LTime: TLabel
+      Left = 392
+      Height = 15
+      Top = 10
+      Width = 193
+      Alignment = taRightJustify
+      AutoSize = False
+    end
   end
   object OD1: TOpenDialog
     Title = 'Ouvrir un fichier ts '
@@ -188,5 +218,46 @@ object FMergeTS: TFMergeTS
     Filter = 'Fichier ts ou mts|*.ts;*.mts'
     Left = 472
     Top = 156
+  end
+  object bbOsVer: TbbOsVersion
+    ProdStrs.Strings = (
+      ''
+      'Home'
+      'Professional'
+      'Server'
+    )
+    Win10Strs.Strings = (
+      '00000=Unknown version'
+      '10240=v 1507 "July 2015 update"'
+      '10586=v 1511 "November 2015 update"'
+      '14393=v 1607 "July 2016 (Anniversary update)"'
+      '15063=v 1703 "April 2017 (Creators update)"'
+      '16299=v 1709 "October 2017 (Fall Creators update)"'
+      '17134=v 1803 "April 2018 update"'
+      '17763=v 1809 "October 2018 update"'
+      '18362=v 1903 "May 2019 update"'
+      '18363=v 1909 "November 2019 update"'
+      '19041=v 2004 "May 2020 update"'
+      '19042=v 20H2 "October 2020 update"'
+      '19043=v 21H1 "May 2021 update"'
+      '19044=v 21H2 "November 2021 update"'
+      '19045=v 22H2 "October 2022 update"'
+    )
+    Win11Strs.Strings = (
+      '00000=Unknown version'
+      '22000=v 21H2 "October 2021 Initial version"'
+      '22621=v 22H2 "September 2022 update"'
+      '22631=v 23H2 "October 2023 update"'
+    )
+    Left = 396
+    Top = 172
+  end
+  object TimerTime: TLFPTimer
+    Enabled = True
+    Interval = 1000
+    UseTimerThread = False
+    OnTimer = TimerTimeTimer
+    Left = 264
+    Top = 166
   end
 end

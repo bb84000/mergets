@@ -1,0 +1,15 @@
+MergeTS - Merge utility for TS files created by some DVB-T
+
+Version 0.1.0.0 - 18/03/2024
+- Port of Java utility rectv on FPC Lazarus, works with strong 8211 TS 1Gb files
+
+Version 0.1.0.1 - 19/03/2024
+- Added support of strong 8222 MTS 4 Gb files
+
+Version 0.1.0.2 - 20/03/2024
+- Added change of merged file extension to correpond to input files
+- Added some safety features to prevent changes during merging
+- Added status bar with version info, OS info and date/time display
+
+
+
