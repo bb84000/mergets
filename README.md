@@ -1,6 +1,6 @@
-# mergets
+# Merge TS
  
-##TS/MTS Files merge
+## TS/MTS Files merge
 
 Merge utility to join TS/MTS files parts recorded by some DVB adapters.
 
