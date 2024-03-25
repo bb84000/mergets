@@ -1,0 +1,5 @@
+Merge TS
+
+Fusion de fichiers crés par certains adaptateurs DVB
+
+Plus de détails sur le wiki du programme sur https://www.github.com/84000/mergets

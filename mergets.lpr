@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, mergets1, lazbbcomponents
+  Forms, mergets1, settings1
   { you can add units after this };
 
 {$R *.res}
@@ -20,6 +20,7 @@ begin
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TFMergeTS, FMergeTS);
+  Application.CreateForm(TFSettings, FSettings);
   Application.Run;
 end.
 

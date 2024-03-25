@@ -11,5 +11,12 @@ Version 0.1.0.2 - 20/03/2024
 - Added some safety features to prevent changes during merging
 - Added status bar with version info, OS info and date/time display
 
+Version 0.1.1.0 - 25/03/2024
+- Added About box, whith new version check (need openssl present on the machine).
+- Added English translation (need lng files in lang folder)
+- Replaced buttons with buttons bar
+- Added Settings dialog
+- Added update check (need openssl library)
+- Added installer
 
 

@@ -13,12 +13,15 @@
         <DpiAware Value="True"/>
       </XPManifest>
       <Icon Value="0"/>
+      <Resources Count="1">
+        <Resource_0 FileName="images\aboutimg.png" Type="RCDATA" ResourceName="ABOUTIMG"/>
+      </Resources>
     </General>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="2"/>
-      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.0.2"/>
+      <RevisionNr Value="1"/>
+      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.1.0"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
@@ -54,19 +57,30 @@
         <Filename Value="history.txt"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="settings1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FSettings"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="mergets"/>
+      <Filename Value="mergets$(TargetOS)"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="..\lazbbunits"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetCPU Value="x86_64"/>
+      <TargetOS Value="win64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
