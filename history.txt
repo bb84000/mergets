@@ -19,4 +19,10 @@ Version 0.1.1.0 - 25/03/2024
 - Added update check (need openssl library)
 - Added installer
 
+Version 0.1.1.1 - 10/04/2024
+- Changed TS type detection
+
+Version 0.1.1.2 - 24/05/2024
+- Relpaced iDay type with PtrInt
+- Linux version available
 

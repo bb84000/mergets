@@ -31,12 +31,14 @@ type
     FStartMini: Boolean;
     FLangStr: String;
     FDataFolder: String;
+    FffmpegPath: String;
     FAppName: String;
     FVersion: String;
     FLastVersion: String;
     FTranslateTimeDate: Boolean;
     function SaveItem(iNode: TDOMNode; sname, svalue: string): TDOMNode;
-
+    procedure SetDataFolder(s: string);
+    procedure SetffmpegPath(s: string);
   public
     constructor Create (AppName: string);
     procedure SetSavSizePos (b: Boolean);
@@ -46,7 +48,7 @@ type
     procedure SetStartup (b: Boolean);
     procedure SetStartmini (b: Boolean);
     procedure SetLangStr (s: string);
-    procedure SetDataFolder(s: string);
+
     procedure SetVersion(s: string);
     procedure SetLastVersion(s: String);
     procedure SetTranslateTimeDate(b: Boolean);
@@ -65,6 +67,7 @@ type
     property StartMini: Boolean read FStartMini write SetStartMini;
     property LangStr: String read FLangStr write SetLangStr;
     property DataFolder: string read FDataFolder write setDataFolder;
+    property ffmpegPath: string read FffmpegPath write SetffmpegPath;
     property AppName: string read FAppName write FAppName;
     property Version: string read FVersion write SetVersion;
     property LastVersion: string read FLastVersion write SetLastVersion;
@@ -82,14 +85,19 @@ end;
     CBNoChkNewVer: TCheckBox;
     CBLangue: TComboBox;
     EDataFolder: TEdit;
+    EffmpegPath: TEdit;
     GroupBox1: TGroupBox;
+    Lffmpegpath: TLabel;
     LLangue: TLabel;
     LDataFolder: TLabel;
     LStatus: TLabel;
     PnlButtons: TPanel;
     PnlStatus: TPanel;
+    SBtnSelectTffmpeg: TSpeedButton;
+    SDffmpeg: TSelectDirectoryDialog;
     procedure CBStartupChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure SBtnSelectTffmpegClick(Sender: TObject);
   private
 
   public
@@ -176,12 +184,18 @@ end;
 
 procedure TConfig.SetDataFolder (s: string);
 begin
-  if FDataFolder <> s then
-  begin
-    FDataFolder:= s;
-    if Assigned(FOnChange) then FOnChange(Self);
-  end;
+  if FDataFolder = s then exit;
+  FDataFolder:= s;
+  if Assigned(FOnChange) then FOnChange(Self);
 end;
+
+procedure TConfig.SetffmpegPath (s: string);
+begin
+  if FffmpegPath = s then exit;
+  FffmpegPath:= s;
+  if Assigned(FOnChange) then FOnChange(Self);
+end;
+
 
 procedure TConfig.SetVersion(s:string);
 begin
@@ -230,6 +244,7 @@ begin
     iNode.AppendChild(SaveItem(iNode, 'startmini',BoolToString(FStartMini)));
     iNode.AppendChild(SaveItem(iNode, 'langstr', FLangStr));
     iNode.AppendChild(SaveItem(iNode, 'datafolder', FDataFolder));
+    iNode.AppendChild(SaveItem(iNode, 'ffmpegpath', FffmpegPath));
     Result:= True;
   except
     result:= False;
@@ -289,6 +304,7 @@ begin
       if upCaseSetting = 'STARTMINI' then FStartMini:= StringToBool(s);
       if upCaseSetting = 'LANGSTR' then FLangStr:= s;
       if upCaseSetting = 'DATAFOLDER' then FDataFolder:= s;
+      if upCaseSetting = 'FFMPEGPATH' then ffmpegPath:= s;
     finally
       subnode:= subnode.NextSibling;
     end;
@@ -328,6 +344,13 @@ end;
 procedure TFSettings.FormCreate(Sender: TObject);
 begin
   Settings:= TConfig.Create('appname');
+end;
+
+procedure TFSettings.SBtnSelectTffmpegClick(Sender: TObject);
+begin
+  SDffmpeg.filename:= EffmpegPath.Text;
+  if SDffmpeg.Execute then
+  EffmpegPath.Text:= SDffmpeg.filename;
 end;
 
 procedure TFSettings.Translate(LngFile: TBbIniFile);

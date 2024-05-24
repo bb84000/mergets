@@ -1,5 +1,16 @@
 Merge TS
 
-Fusion de fichiers crés par certains adaptateurs DVB
+Fusion de fichiers créés par certains adaptateurs DVB HD et UHD.
+
+Testés à ce jour :
+
+Axil RT0407 HD (MTS)
+CGV Etimo 1T-2 (MTS)
+CGV Etimo 2T-C (TS)
+FujiOnkyo FT-2002HD (MTS)
+Metronic 441701 UHD S1 4K (TS)
+SEDEA SNT-2002 HD (MTS)
+Strong 8211 et similaires (TS)
+Strong 8222 et similaires (MTS)
 
 Plus de détails sur le wiki du programme sur https://www.github.com/84000/mergets

@@ -8,9 +8,9 @@
       <Unit>
         <Filename Value="mergets.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="10"/>
-        <CursorPos X="22" Y="23"/>
-        <UsageCount Value="79"/>
+        <EditorIndex Value="6"/>
+        <CursorPos Y="25"/>
+        <UsageCount Value="114"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -21,14 +21,15 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
-        <UsageCount Value="79"/>
+        <UsageCount Value="114"/>
       </Unit>
       <Unit>
         <Filename Value="history.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="9"/>
-        <CursorPos X="44" Y="19"/>
-        <UsageCount Value="55"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="26" Y="27"/>
+        <UsageCount Value="90"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Text"/>
       </Unit>
@@ -38,49 +39,57 @@
         <ComponentName Value="FSettings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="315"/>
-        <CursorPos X="88" Y="287"/>
-        <UsageCount Value="38"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="335"/>
+        <CursorPos X="39" Y="353"/>
+        <UsageCount Value="73"/>
+      </Unit>
+      <Unit>
+        <Filename Value="definitions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="32"/>
+        <CursorPos X="6" Y="297"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="mergets1.pas"/>
         <ComponentName Value="FMergeTS"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="66"/>
-        <CursorPos X="11" Y="82"/>
-        <UsageCount Value="38"/>
+        <TopLine Value="351"/>
+        <CursorPos X="7" Y="156"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\osutilsh.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="10" Y="47"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\classes\classesh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1032"/>
         <CursorPos X="14" Y="1049"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\inc\mathh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="99"/>
         <CursorPos X="14" Y="116"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="..\lazbbunits\lazbbutils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="217"/>
         <CursorPos X="40" Y="242"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\dialogs.pp"/>
@@ -88,14 +97,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="20"/>
         <CursorPos X="3" Y="37"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\lazutils\uitypes.pas"/>
         <UnitName Value="UITypes"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="8" Y="13"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
@@ -103,20 +112,20 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="919"/>
         <CursorPos X="15" Y="935"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32listsl.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="136"/>
         <CursorPos Y="153"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\datih.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="28" Y="21"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit>
       <Unit>
         <Filename Value="..\Packets\Lazbbcomponents\lazbbcomponents.lpk"/>
@@ -124,214 +133,243 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="19"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="476"/>
-        <CursorPos X="3" Y="493"/>
-        <UsageCount Value="13"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="314"/>
+        <CursorPos X="3" Y="331"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\hash\src\crc.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="128"/>
         <CursorPos X="10" Y="30"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="..\lazbbunits\lazbbaboutdlg.pas"/>
         <ComponentName Value="AboutDlg"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="59"/>
         <CursorPos Y="87"/>
-        <UsageCount Value="24"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <UsageCount Value="26"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\openssl\src\openssl.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1467"/>
         <CursorPos X="26" Y="1495"/>
-        <UsageCount Value="23"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="25"/>
       </Unit>
       <Unit>
         <Filename Value="lang\en.lng"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="26"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="24"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
       <Unit>
         <Filename Value="lang\fr.lng"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="15"/>
         <CursorPos Y="26"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="24"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\include\application.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="280"/>
-        <CursorPos Y="296"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="2268"/>
+        <CursorPos X="24" Y="2285"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\Packets\Lazbbcomponents\lazbbosversion.pas"/>
         <UnitName Value="lazbbOsVersion"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="626"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\sysinth.inc"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="47"/>
         <CursorPos X="3" Y="57"/>
-        <UsageCount Value="14"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="16"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\lazutils\lazutf8.pas"/>
         <UnitName Value="LazUTF8"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="203"/>
         <CursorPos X="81" Y="220"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="15"/>
+      </Unit>
+      <Unit>
+        <Filename Value="packets1.pas"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="328"/>
+        <CursorPos Y="379"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\classes\streams.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="540"/>
+        <CursorPos X="25" Y="557"/>
+        <UsageCount Value="12"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\lcl\forms.pp"/>
+        <UnitName Value="Forms"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="1592"/>
+        <CursorPos X="15" Y="1609"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\calendrier\calendrier1.pas"/>
+        <ComponentName Value="FCalendrier"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="426"/>
+        <CursorPos X="29" Y="454"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="790" Column="45" TopLine="771"/>
+        <Caret Line="27" Column="10" TopLine="11"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="108" Column="49" TopLine="93"/>
+        <Caret Line="125" Column="38" TopLine="98"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="792" TopLine="775"/>
+        <Caret Line="360" Column="32" TopLine="332"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="589" Column="108" TopLine="572"/>
+        <Caret Line="125" Column="26" TopLine="110"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="791" Column="81" TopLine="763"/>
+        <Caret Line="199" Column="44" TopLine="191"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="108" Column="68" TopLine="82"/>
+        <Caret Line="360" Column="44" TopLine="332"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="591" Column="5" TopLine="574"/>
+        <Caret Line="368" Column="45" TopLine="340"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="590" Column="23" TopLine="573"/>
+        <Caret Line="373" Column="59" TopLine="345"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="187" Column="66" TopLine="178"/>
+        <Caret Line="629" Column="72" TopLine="601"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="790" Column="45" TopLine="762"/>
+        <Caret Line="24" Column="10" TopLine="7"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="108" Column="39" TopLine="93"/>
+        <Caret Line="27" Column="10" TopLine="7"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="29" Column="112" TopLine="20"/>
+        <Caret Line="126" Column="42" TopLine="98"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="11" Column="123"/>
+        <Caret Line="200" Column="44" TopLine="184"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="21" Column="43"/>
+        <Caret Line="361" Column="46" TopLine="344"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="142" Column="59" TopLine="114"/>
+        <Caret Line="200" Column="44" TopLine="183"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\lazarus\lcl\include\application.inc"/>
+        <Caret Line="2285" Column="24" TopLine="2268"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="186" Column="16" TopLine="158"/>
+        <Caret Line="200" Column="44" TopLine="183"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="188" Column="16" TopLine="160"/>
+        <Caret Line="64" Column="136" TopLine="56"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="232" Column="59" TopLine="204"/>
+        <Caret Line="126" Column="36" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="..\calendrier\calendrier1.pas"/>
+        <Caret Line="31" TopLine="11"/>
+      </Position>
+      <Position>
+        <Filename Value="..\calendrier\calendrier1.pas"/>
+        <Caret Line="212" Column="38" TopLine="185"/>
+      </Position>
+      <Position>
+        <Filename Value="..\calendrier\calendrier1.pas"/>
+        <Caret Line="23" Column="54" TopLine="6"/>
+      </Position>
+      <Position>
+        <Filename Value="..\calendrier\calendrier1.pas"/>
+        <Caret Line="186" Column="19" TopLine="159"/>
+      </Position>
+      <Position>
+        <Filename Value="..\calendrier\calendrier1.pas"/>
+        <Caret Line="454" Column="29" TopLine="426"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="236" Column="14" TopLine="208"/>
+        <Caret Line="4" Column="19"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="239" Column="14" TopLine="211"/>
+        <Caret Line="17" Column="44"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="280" Column="57" TopLine="252"/>
+        <Caret Line="28" Column="26"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="301" Column="59" TopLine="273"/>
+        <Caret Line="56" Column="20" TopLine="29"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="381" Column="8" TopLine="360"/>
+        <Caret Line="57" Column="20" TopLine="29"/>
       </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
-        <Caret Line="82" Column="30" TopLine="71"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="239" Column="37" TopLine="221"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="774" Column="50" TopLine="746"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="82" Column="11" TopLine="66"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="100" TopLine="72"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="239" Column="27" TopLine="211"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="774" Column="50" TopLine="746"/>
+        <Caret Line="191" Column="31" TopLine="163"/>
       </Position>
     </JumpHistory>
     <RunParams>

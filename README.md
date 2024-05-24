@@ -1,9 +1,11 @@
-# mergets
+# Merge TS
  
-##TS/MTS Files merge
+## TS/MTS Files merge
 
 Merge utility to join TS/MTS files parts recorded by some DVB adapters.
 
 Experimental: Please have a copy ofyour files before processing !
 
-Open source portable program, usage is free<br>
+Open source program, usage is free<br>
+Windows installer.<br>
+Linux : copy mergetslinux and lang folder in any directory and launch program

@@ -1,12 +1,12 @@
 object FMergeTS: TFMergeTS
-  Left = 754
-  Height = 382
+  Left = 685
+  Height = 435
   Top = 290
   Width = 600
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Fusion de fichiers TS'
-  ClientHeight = 382
+  ClientHeight = 435
   ClientWidth = 600
   OnActivate = FormActivate
   OnClose = FormClose
@@ -144,13 +144,14 @@ object FMergeTS: TFMergeTS
   end
   object Memo1: TMemo
     Left = 16
-    Height = 152
+    Height = 212
     Top = 180
     Width = 568
     Lines.Strings = (
       'Memo1'
     )
     ReadOnly = True
+    ScrollBars = ssAutoBoth
     TabOrder = 3
   end
   object CBtsfiles: TComboBox
@@ -166,7 +167,7 @@ object FMergeTS: TFMergeTS
   object PStatus: TPanel
     Left = 0
     Height = 34
-    Top = 348
+    Top = 401
     Width = 600
     Align = alBottom
     BevelInner = bvLowered
@@ -218,7 +219,7 @@ object FMergeTS: TFMergeTS
       Left = 16
       Height = 32
       Hint = 'Fusionner'
-      Top = 6
+      Top = 8
       Width = 30
       Enabled = False
       Glyph.Data = {
@@ -851,15 +852,36 @@ object FMergeTS: TFMergeTS
       ShowHint = True
       ParentShowHint = False
     end
-    object Button1: TButton
-      Left = 509
-      Height = 25
-      Top = 8
-      Width = 75
-      Caption = 'Button1'
+    object CBAdsapter: TComboBox
+      Left = 472
+      Height = 23
+      Top = 10
+      Width = 100
+      ItemHeight = 15
+      Items.Strings = (
+        'Aucun'
+        'FichiersTS'
+        'Fichiers MTS'
+      )
       TabOrder = 0
+      Text = 'CBAdsapter'
+    end
+    object SbtnProcess: TSpeedButton
+      Left = 184
+      Height = 22
+      Top = 12
+      Width = 23
       Visible = False
-      OnClick = Button1Click
+      OnClick = SbtnProcessClick
+    end
+    object SBAnalyzeTS: TSpeedButton
+      Left = 224
+      Height = 22
+      Top = 12
+      Width = 23
+      Caption = 'TS'
+      Visible = False
+      OnClick = SBAnalyzeTSClick
     end
   end
   object OD1: TOpenDialog
@@ -917,12 +939,30 @@ object FMergeTS: TFMergeTS
     Top = 210
   end
   object PMnuTime: TPopupMenu
-    Left = 120
-    Top = 214
+    Left = 144
+    Top = 224
     object MnuItemChangeTime: TMenuItem
       Caption = 'Traduire la date et l''heure'
       Checked = True
       OnClick = MnuItemChangeTimeClick
     end
+  end
+  object AsyncProcess1: TAsyncProcess
+    Active = False
+    Options = []
+    Priority = ppNormal
+    StartupOptions = []
+    ShowWindow = swoNone
+    WindowColumns = 0
+    WindowHeight = 0
+    WindowLeft = 0
+    WindowRows = 0
+    WindowTop = 0
+    WindowWidth = 0
+    FillAttribute = 0
+    OnReadData = AsyncProcess1ReadData
+    OnTerminate = AsyncProcess1Terminate
+    Left = 48
+    Top = 224
   end
 end

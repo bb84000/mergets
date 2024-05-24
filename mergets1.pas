@@ -1,7 +1,7 @@
 //******************************************************************************
 // MergeTs : utility to assemble TS files parts
 // Adapters supported : Strong 8211, Strong 8222 and clones
-// bb - sdtp - march 2024
+// bb - sdtp - may 2024
 //******************************************************************************
 
 unit mergets1;
@@ -14,33 +14,19 @@ uses
   {$IFDEF WINDOWS}
   Win32Proc,
   {$ENDIF}Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, Buttons, ExtCtrls, Menus, lazbbutils, lazbbOsVersion, lazbbcontrols,
-  lazbbaboutdlg, lazbbinifiles, LazUTF8, settings1, fileutil, Translations ;
+  ComCtrls, Buttons, ExtCtrls, Menus, AsyncProcess, lazbbutils, lazbbOsVersion,
+  lazbbcontrols, lazbbaboutdlg, lazbbinifiles, LazUTF8, settings1, fileutil,
+  Translations, packets1, process;
 
 type
-   { int64 or longint type for Application.QueueAsyncCall }
-  {$IFDEF CPU32}
-    iDays= LongInt;
-  {$ENDIF}
-  {$IFDEF CPU64}
-    iDays= Int64;
-  {$ENDIF}
+
   TSaveMode = (None, Setting, All);
-
-  TSPacket = record
-    syncbyte: longint;
-    pid: longint;
-    adapfield: longint;
-    pcrflag: boolean;
-    pcr: int64;
-    pcrtime: int64;
-  end;
-
 
   { TFMergeTS }
 
   TFMergeTS = class(TForm)
-    Button1: TButton;
+    AsyncProcess1: TAsyncProcess;
+    CBAdsapter: TComboBox;
     LTime1: TLabel;
     LVersion: TLabel;
     MnuItemChangeTime: TMenuItem;
@@ -54,6 +40,8 @@ type
     SBtnSettings: TSpeedButton;
     SBtnAbout: TSpeedButton;
     LTime: TStaticText;
+    SbtnProcess: TSpeedButton;
+    SBAnalyzeTS: TSpeedButton;
     TimerTime: TLFPTimer;
     Ltsfiles: TLabel;
     LMergedTS: TLabel;
@@ -65,7 +53,13 @@ type
     SD1: TSaveDialog;
     SBtnSelectTSFiles: TSpeedButton;
     SBtnMergedTS: TSpeedButton;
+    procedure AsyncProcess1ReadData(Sender: TObject);
+    procedure AsyncProcess1Terminate(Sender: TObject);
+    procedure CBAdsapterChange(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure MnuItemChangeTimeClick(Sender: TObject);
+    procedure PButtonsClick(Sender: TObject);
+    procedure SBAnalyzeTSClick(Sender: TObject);
     procedure SBtnMergedTSClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -73,6 +67,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure SBtnAboutClick(Sender: TObject);
     procedure SBtnMergeClick(Sender: TObject);
+    procedure SbtnProcessClick(Sender: TObject);
     procedure SBtnQuitClick(Sender: TObject);
     procedure SBtnSettingsClick(Sender: TObject);
     procedure TimerTimeTimer(Sender: TObject);
@@ -97,7 +92,8 @@ type
     progname: String;
     ConfigFileName: string;
     HttpErrMsgNames: array [0..16] of string;
-
+    filtyp: tstype;
+    //sTSfile, SMTSfile: String;
     SettingsChanged, SettingsStateChanged: Boolean;
     sCannotGetNewVerList, sNoLongerChkUpdates, sUpdateAlertBox : String;
     myLongMonth : TMonthNameArray;
@@ -105,8 +101,10 @@ type
     sCannotCreateVideoFolder: String;
     sAskReplaceFile, sExistingFile: String;
     sSelectedOneFile, sFilesToMerge: String;
-    sFileFormatNotSupported: String;
+    sFileFormatNotSupported, sFileFormatChanged: String;
     sCopyFile, sLastFilePCR, sJoinFile, sMergeComplete, sMergedFile: String;
+    StreamsList: TStringList;
+    aElementStream: Array of TElem_Stream;
     procedure make_crc_table;
     function crc32_block(crc: Cardinal; pData: PByte;blk_len: Integer): Cardinal;
     procedure Initialize;
@@ -115,7 +113,10 @@ type
     function SaveSettings(Typ: TSaveMode): boolean;
     procedure SettingsOnChange(Sender: TObject);
     procedure SettingsOnStateChange(Sender: TObject);
-    procedure CheckUpdate(days: iDays);
+    //procedure CheckUpdate(days: iDays);
+    procedure CheckUpdate(days: PtrInt);
+    procedure ProcessProbe(tsFile: String);
+    function AnalyzeTS(tsFile: String): Boolean;
   public
 
   end;
@@ -152,7 +153,7 @@ begin
     CurLangStr := GetEnvironmentVariable('LANG');
     x := pos('.', CurLangStr);
     CurLangStr := Copy(CurLangStr, 0, 2);
-    wxbitsrun := 0;
+    //wxbitsrun := 0;
     //OSTarget:= '';
     UserAppsDataPath := GetUserDir;
     // Get mail client
@@ -176,6 +177,7 @@ begin
   ConfigFileName:= MTSAppDataPath+'settings.xml';
   myLongMonth:= DefaultFormatSettings.LongMonthNames ;
   myLongDay:= DefaultFormatSettings.LongDayNames;
+  StreamsList:= TstringList.Create;
   Initialized:= false;
 end;
 
@@ -186,7 +188,8 @@ begin
     Initialize;
     Application.ProcessMessages;
     //if StartMini then PostMessage(Handle, WM_FORMSHOWN, 0, 0) ;
-    Application.QueueAsyncCall(@CheckUpdate, ChkVerInterval);       // async call to let icons loading
+    // async call to let icons loading
+    Application.QueueAsyncCall(@CheckUpdate, ChkVerInterval);         //second parameter implicitly transtyped to PtrInt,
 
 end;
 
@@ -255,6 +258,7 @@ begin
   FSettings.LStatus.Caption := OSVersion.VerDetail;
   LVersion.Caption:='Version : '+version+' - '+DateTimeToStr(CompileDateTime);
   LVersion.Hint:= OSVersion.VerDetail;
+  CBAdsapter.ItemIndex:= 0;
   Initialized:= true;
 end;
 
@@ -271,8 +275,8 @@ begin
       WinState := TWindowState(StrToInt('$' + Copy(Settings.WState, 1, 4)));
       self.Top := StrToInt('$' + Copy(Settings.WState, 5, 4));
       self.Left := StrToInt('$' + Copy(Settings.WState, 9, 4));
-      self.Height := StrToInt('$' + Copy(Settings.WState, 13, 4));
-      self.Width := StrToInt('$' + Copy(Settings.WState, 17, 4));
+      //self.Height := StrToInt('$' + Copy(Settings.WState, 13, 4));         // Fixed size
+      //self.Width := StrToInt('$' + Copy(Settings.WState, 17, 4));
     except
     end;
     // Détermination de la langue (si pas dans settings, langue par défaut)
@@ -346,7 +350,7 @@ end;
 
 //Dernière recherche il y a "days" jours ou plus ?
 
-procedure TFMergets.CheckUpdate(days: iDays);
+procedure TFMergets.CheckUpdate(days: PtrInt);
 var
   errmsg: string;
   sNewVer: string;
@@ -442,20 +446,100 @@ begin
   FSettings.Settings.LastUpdChk:= AboutBox.Lastupdate;
 end;
 
-procedure TFMergeTS.SBtnMergeClick(Sender: TObject);
-type
-  tstype = (TS, MTS);
+procedure TFMergeTS.SBtnQuitClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TFMergeTS.SBtnSettingsClick(Sender: TObject);
 var
-  filtyp: tstype;
-  fhnd : THandle;
-  mypaq : array [0..191] of byte;   //192 for M2TS
-  paqsize: Integer;
-  paqofs: Integer;
-  mypacket: TSPacket;
+  oldlng, oldadapt: Integer;
+
+begin
+  with FSettings do
+  begin
+    Edatafolder.Text := MTSAppDataPath;
+    EffmpegPath.Text:= Settings.ffmpegPath;
+    CBSavePos.Checked:= Settings.SavSizePos;
+    CBNoChkNewVer.Checked:= Settings.NoChkNewVer;
+    CBLangue.ItemIndex := LangNums.IndexOf(Settings.LangStr);
+    oldlng := CBLangue.ItemIndex;
+    oldadapt:= CBAdsapter.ItemIndex;
+    if ShowModal <> mrOK then exit;
+    Settings.ffmpegPath:=  EffmpegPath.Text;
+    Settings.SavSizePos := CBSavePos.Checked;
+    Settings.NoChkNewVer := CBNoChkNewVer.Checked;
+    Settings.LangStr := LangNums.Strings[CBLangue.ItemIndex];
+
+    if (CBLangue.ItemIndex<>oldlng) then
+    begin
+      LangFile:= TBbIniFile.Create(ExtractFilePath(Application.ExeName) + 'lang'+PathDelim+Settings.LangStr+'.lng');
+      self.Translate(LangFile);               // self is important !!! translate main form
+      LVersion.Hint:= OSVersion.VerDetail;    // Need to change
+      CBAdsapter.ItemIndex:= oldadapt;
+    end;
+
+  end;
+end;
+
+// External process functions for ffprobe execution
+
+procedure TFMergeTS.ProcessProbe (tsFile: String);
+begin
+  StreamsList.Clear;
+  if not Fileexists(FSettings.Settings.ffmpegPath +'\ffprobe.exe') then exit;
+  if CBtsfiles.Items.Count= 0 then exit;
+  if  not Fileexists(tsFile) then exit;  //CBtsfiles.Items[0]) then exit;
+  try
+    AsyncProcess1.Parameters.Clear;
+    AsyncProcess1.Executable := FSettings.Settings.ffmpegPath +'\ffprobe.exe';
+    AsyncProcess1.Parameters.Add(tsFile);  //CBtsfiles.Items[0]);
+    AsyncProcess1.Options := [poNoConsole, poUsePipes, poStderrToOutPut];  //AsyncProcess1.Options + [poNoConsole, poUsePipes, poStderrToOutPut];    // needed !
+    AsyncProcess1.Execute;
+  except
+  end;
+end;
+
+procedure TFMergeTS.AsyncProcess1ReadData(Sender: TObject);
+var
+  sl: TstringList;
+  i : Integer;
+begin
+  // load streams description in a list
+  sl := TStringList.Create;
+  sl.LoadFromStream(AsyncProcess1.Output);
+  for i := 0 to sl.Count - 1 do
+  begin
+    if Pos('Stream', sl.Strings[i] )>0 then
+      StreamsList.Add(sl.Strings[i]);
+  end;
+  sl.Free;
+end;
+
+procedure TFMergeTS.AsyncProcess1Terminate(Sender: TObject);
+
+begin
+  // Process stream list
+  // Video :     Stream #0:0[0xdc]: Video: h264 (High), yuv420p(tv, bt709, top first), 1920x1080 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 90k tbn, 50 tbc
+  Memo1.Append(StreamsList.Text);
+  // Parse data
+
+  AsyncProcess1.CloseInput;
+  AsyncProcess1.CloseOutput;
+  AsyncProcess1.CloseStderr;
+end;
+
+
+
+// New merge function
+procedure TFMergeTS.SBtnMergeClick(Sender: TObject);
+var
+  Mypak: TSPacket;
+
   pcrbase, lastpcr: Int64;
   tsread, tspos: Int64;
   pcrbeg: Boolean;
-  tmp: Int64;
+
   tssize, filesize: Int64;
   beginpos, endpos : Int64;
   progress2 : LongInt;
@@ -463,9 +547,9 @@ var
   fos: TFileStream;
   x, y: LongInt;
   t: double;
+  pcrtime: Int64;
   StartTime, EndTime : TDatetime;
   hms: String;
-  Buf5: array [0..4] of Byte;
 begin
   // if merged files exists, ask to delete
   if FileExists(EMergedTS.Text) then
@@ -486,34 +570,13 @@ begin
   EMergedTS.Enabled:= false;
   StartTime:= Now;
   fos:= TFileStream.Create(EMergedTS.Text, fmCreate);
-  mypacket:= Default(TSPacket);
   pcrbase:= 0;
   lastpcr:= 0;
   endpos:= 0;
   filesize:=0;
   ProgressBar2.position:= 0;
   progress2:= 0;
-  // check file type on first file
-  fhnd:= FileOpen(CBtsfiles.Items[0], fmOpenRead);
-  FileRead(fhnd, Buf5, 5 );
-  FileClose(fhnd);
-  if Buf5[0]= $47 then filtyp:= TS else
-  if Buf5[4]= $47 then filtyp:= MTS else
-  begin
-    ShowMessage(sFileFormatNotSupported);
-    memo1.Append(sFileFormatNotSupported);
-    exit;
-  end;
-  if filtyp = TS then
-    begin
-      paqsize:= 188;
-      paqofs:=0;
-    end else
-    begin
-      paqsize:= 192;
-      paqofs:= 4;
-    end;
-    Application.ProcessMessages ;
+  Application.ProcessMessages ;
   // Now, we process each TS file
   for y:= 0 to CBtsfiles.Items.Count-1 do
   begin
@@ -523,46 +586,48 @@ begin
     Progressbar1.Position:= 0;
     tsread:= 0;
     tspos:= 0;
+    Mypak:= TSPacket.Create;
+    Mypak.ts_type:= filtyp;
     // Open ts file
     fts:= TFileStream.Create(CBtsfiles.Items[y], fmOpenRead) ;
-    tssize:= fts.Size div paqsize;
+    tssize:= fts.Size div Mypak.ts_length;              //tssize:= fts.Size div paqsize;
     for x:= 0 to tssize-1 do
     begin
-      tsread:= fts.Read(mypaq, paqsize);
+      tsread:= fts.Read(Mypak.data, Mypak.ts_length);
+      // check signature to avoid merge different formats
+      If (y > 0) and (x = 0) then
+      begin
+        Mypak.ReadData();
+        if Mypak.ts_type <> filtyp then
+        begin
+          ShowMessage(sFileFormatChanged);
+          memo1.Append(sFileFormatChanged);    // Insert warning
+          exit;
+        end;
+      end else Mypak.Readdata(filtyp);
       if (filtyp=TS) then
       begin
-      mypacket.adapfield:=  ((mypaq[paqofs+3] and $0ff) and $030) shr 4;              //(mypaq[3]&0xff & 0x30) >> 4;
-      if mypacket.adapfield > 1 then
+      if Mypak.afc > 1 then   //if adaptation field
       begin
-        mypacket.pcrflag:= (((mypaq[paqofs+5] and $010) shr 4) <> 0);                 //(((mypaq[5] & 0x10) >> 4) != 0);
-        if (mypacket.pcrflag) then
+        Mypak.GetAdaptField;
+        if Mypak.Adapt_Field.aPCRf > 0 then   //if pcr flag
         begin
           endpos:= tspos;
-	  // Calcul de la valeur du PCR
-	  {tmp:=0;
-	  for i:= 6 to 10 do                      //(int i = 6; i < 11; i++)
-          begin
-	    tmp:= tmp shl 8;		          //tmp <<= 8;
-	    tmp:= tmp or (mypaq[i] and $0FF);	  //tmp |= (mypaq[i] & 0xFF);
-	  end;
-	  mypacket.pcr:= tmp shr 7; //33 bits  }
-          tmp:= (mypaq[paqofs+6] and $0ff)* $1000000+(mypaq[paqofs+7] and $0ff)* $10000+(mypaq[paqofs+8] and $0ff)* $100+(mypaq[paqofs+9] and $0ff) ;
-	  mypacket.pcr:= (tmp*$100+(mypaq[paqofs+10] and $0ff)) shr 7; //33 bits
-          pcrbase:= mypacket.pcr;
+          pcrbase:=  Mypak.Adapt_Field.pcr;     //pcrbase:= mypacket.pcr;
           if ((y > 0) and (not pcrbeg) and (pcrbase = lastpcr)) then
           begin
 	    beginpos:= tspos;
 	    pcrbeg:= true;
-	    mypacket.pcrtime:= (pcrbase div 90); // convert to milliseconds
-            t := mypacket.pcrtime/ MSecsPerDay;
+	    pcrtime:= (pcrbase div 90);              // convert to milliseconds
+            t := pcrtime/ MSecsPerDay;               // convert to days
             hms:= FormatDateTime('[h]:nn:ss.zzz', t, [fdoInterval]);
 	    memo1.append (Format(sJoinFile, [CBtsfiles.Items[y], hms]));
  	  end;
 	end;
       end;
       end;
-      if ((y=0) or pcrbeg or (filtyp=MTS)) then fos.write(mypaq, paqsize);         	// if (y==0 || pcrbeg) outChan.write(bpaq);
-      tspos:= tspos+tsread;                                     //	pos+= read;
+      if ((y=0) or pcrbeg or (filtyp=MTS)) then fos.write(Mypak.data, Mypak.ts_length);
+      tspos:= tspos+tsread;
       if  (x mod 200) = 0 then
       begin
         ProgressBar1.Position:= Round(100*x / tssize);                                          // use mod to update
@@ -581,8 +646,7 @@ begin
       // on tronque le fichier
       fos.Size:= filesize;
     end;
-
-    progress2:= ProgressBar2.position;
+     progress2:= ProgressBar2.position;
     if assigned(fts) then fts.Free;
   end;
   ProgressBar2.position:= 100;
@@ -594,45 +658,21 @@ begin
   SBtnSelectTSFiles.Enabled:= True;
   SBtnMergedTS.Enabled:= true;
   EMergedTS.Enabled:= true;
+  if assigned(Mypak) then Mypak.free;
   if assigned(fos) then fos.Free;
-
 end;
 
-procedure TFMergeTS.SBtnQuitClick(Sender: TObject);
+procedure TFMergeTS.SbtnProcessClick(Sender: TObject);
 begin
-  close;
-end;
-
-procedure TFMergeTS.SBtnSettingsClick(Sender: TObject);
-var
-  oldlng: Integer;
-begin
-  with FSettings do
-  begin
-    Edatafolder.Text := MTSAppDataPath;
-    CBSavePos.Checked:= Settings.SavSizePos;
-    CBNoChkNewVer.Checked:= Settings.NoChkNewVer;
-    CBLangue.ItemIndex := LangNums.IndexOf(Settings.LangStr);
-    oldlng := CBLangue.ItemIndex;
-    if ShowModal <> mrOK then exit;
-    Settings.SavSizePos := CBSavePos.Checked;
-    Settings.NoChkNewVer := CBNoChkNewVer.Checked;
-    Settings.LangStr := LangNums.Strings[CBLangue.ItemIndex];
-    if (CBLangue.ItemIndex<>oldlng) then
-    begin
-      LangFile:= TBbIniFile.Create(ExtractFilePath(Application.ExeName) + 'lang'+PathDelim+Settings.LangStr+'.lng');
-      self.Translate(LangFile);               // self is important !!! translate main form
-      LVersion.Hint:= OSVersion.VerDetail;    // Need to change
-    end;
-
-  end;
+  If CBtsfiles.Items.Count >0 then
+  ProcessProbe(CBtsfiles.Items[0]);
 end;
 
 procedure TFMergeTS.TimerTimeTimer(Sender: TObject);
 var
   s: string;
 begin
-  s:= FormatDateTime('dddd dd mmmm yyyy - hh:mm:ss', now);     // use TFormatsettings for translations, split to make arrays
+  s:= FormatDateTime('dddd dd mmmm yyyy - hh:mm:ss', now);
   s[1]:= UpCase(S[1]);
   LTime.Caption:= s;
 end;
@@ -651,10 +691,10 @@ begin
 end;
 
 procedure TFMergeTS.SBtnSelectTSFilesClick(Sender: TObject);
-var
-  filext: String;
 begin
   CBtsfiles.Text:= '';
+  ProgressBar1.Position:=0;
+  ProgressBar2.Position:=0;
   SBtnMerge.Enabled:= false;
   if OD1.Execute then
   begin
@@ -668,14 +708,10 @@ begin
     end;
     Memo1.Lines.add(sFilesToMerge);
     Memo1.Lines.add(CBtsfiles.Items.Text);
-    SBtnMerge.Enabled:= true;
     CBtsfiles.ItemIndex:= 0;
     CBtsfiles.Items[0];
-    // Change merged file extension  to proper one
-    filext:= ExtractFileExt(CBtsfiles.Items[0]);
-    filext:= LowerCase(Copy(filext, 1, 3));
-    if filext='.mt' then Filext:= '.mts';
-    EMergedTS.text:= ChangeFileExt(EMergedTS.text, filext);
+    // Check First ts file to get some infos
+    AnalyzeTS(CBtsfiles.Items[0]);
   end;
 end;
 
@@ -693,6 +729,111 @@ begin
   Translate(LangFile);
 end;
 
+procedure TFMergeTS.PButtonsClick(Sender: TObject);
+begin
+
+end;
+
+procedure TFMergeTS.SBAnalyzeTSClick(Sender: TObject);
+
+begin
+  if CBtsfiles.Items.count > 0 then
+  AnalyzeTS(CBtsfiles.Items[0]);
+end;
+
+function TFMergeTS.AnalyzeTS(tsFile: String): Boolean;
+var
+  fts: TFileStream;
+  Mypak: TSPacket;
+  Filext: string;
+  tssize: Int64;
+  x: LongInt;
+  tsread, tspos: Int64;
+  PATFound, PMTFound: Boolean;
+  i: integer;
+begin
+  // check file type on first file
+  Result:= False;
+  if not FileExists (tsFile) then exit;
+  fts:= TFileStream.Create(tsfile, fmOpenRead);
+  // Use packets1.unit to check TS file
+  Mypak:= TSPacket.create;         // test new unit
+  fts.ReadBuffer(Mypak.data, length(Mypak.data ));    // Get first packet
+  Mypak.ReadData();
+  filtyp:= MyPak.ts_type;
+  Case filtyp of
+    ERR: begin
+      ShowMessage(sFileFormatNotSupported);
+      memo1.Append(sFileFormatNotSupported);
+      exit;
+    end;
+      TS: filext:= '.ts';
+      MTS: filext:= '.mts';
+  end;
+  CBAdsapter.ItemIndex:= Ord(filtyp);
+  EMergedTS.text:= ChangeFileExt(EMergedTS.text, filext);
+  Application.ProcessMessages;
+  // Now analyze the file
+
+  tssize:= fts.Size div Mypak.ts_length;
+  fts.Seek(0, soBeginning);
+  tsread:= 0;
+  tspos:= 0;
+  Memo1.Append('Analyse du fichier TS');
+  PATFound:= False;
+  PMTFound:= False;
+  for x:= 0 to tssize-1 do
+  begin
+    tsread:= fts.Read(Mypak.data, Mypak.ts_length);
+    Mypak.ReadData(filtyp);
+    if MyPak.PAT.Is_Pat and not PATFound then
+    begin
+      PATFound:= True;
+      if Mypak.PAT.Progs_number> 0 then
+      begin
+        Memo1.append ('Programmes identifiés');
+        for i:= 0 to  Mypak.PAT.Progs_number -1 do
+        begin
+          Memo1.Append ('Service '+Inttostr(Mypak.PAT.Progs[i].Program_num)+ ' - PMT PID '+Inttostr(Mypak.PAT.Progs[i].Program_map_PID));
+        end;
+      end;
+    end;
+    if Mypak.PMT.Is_Pmt and not PMTFound then
+    begin
+       PMTfound:= true;
+       Memo1.Append('PMT '+ InttoStr(Mypak.PID));
+       Memo1.Append('Elementary stream '+ Mypak.PMT.aElem_Stream[0].ES_sdef+ ' - PID: '+ InttoStr(Mypak.PMT.aElem_Stream[0].ES_PID));
+       Memo1.Append('Elementary stream info length '+InttoStr(Mypak.PMT.aElem_Stream[0].ES_info_length));
+       break;
+    end;
+
+    tspos:= tspos+tsread;
+    if  (x mod 200) = 0 then
+    begin
+      ProgressBar1.Position:= Round(100*x / tssize);                                          // use mod to update
+      Application.ProcessMessages;
+    end;
+  end;
+  Memo1.Append('Analyse terminée, en attente de fusion');
+  ProgressBar1.Position:= 0;
+
+  SBtnMerge.Enabled:= true;
+  if assigned(Mypak) then Mypak.Free;
+  if Assigned(fts) then fts.free;
+end;
+
+procedure TFMergeTS.CBAdsapterChange(Sender: TObject);
+begin
+
+end;
+
+procedure TFMergeTS.FormDestroy(Sender: TObject);
+begin
+  if assigned(StreamsList) then StreamsList.free;
+end;
+
+
+
 
 
 
@@ -704,7 +845,7 @@ end;
 
 procedure TFMergeTS.make_crc_table;
 const
-  CRC_POLY_32 = $04C11DB7; //$EDB88320;
+  CRC_POLY_32 = $04C11DB7;
 var
   i, j: Integer;
   crc: Cardinal;
@@ -781,6 +922,8 @@ begin
     LMergedTS.Caption:= ReadString('main','LMergedTS.Caption', LMergedTS.Caption);
     SBtnSelectTSFiles.Hint:=  ReadString('main','SBtnSelectTSFiles.Hint', SBtnSelectTSFiles.Hint);
     SBtnMergedTS.Hint:= ReadString('main','SBtnMergedTS.Hint', SBtnMergedTS.Hint);
+    CBAdsapter.Items[1]:= ReadString('main','sTSfile', 'Fichiers TS');
+    CBAdsapter.Items[2]:= ReadString('main','sMTSfile', 'Fichier MTS');
     sCannotGetNewVerList:= ReadString('main','sCannotGetNewVerList','Liste des nouvelles versions indisponible');
     sCannotCreateVideoFolder:= ReadString('main','sCannotCreateVideoFolder', 'Impossible de créer le répertoire "Videos"');
     sAskReplaceFile:= ReadString('main','sAskReplaceFile', 'Le fichier "%s" existe, le remplacer ?') ;
@@ -788,6 +931,9 @@ begin
     sFilesToMerge:= ReadString('main','sFilesToMerge', 'Fichiers à fusionner');
     sSelectedOneFile:= ReadString('main','sSelectedOneFile', 'Vous n''avez sélectionné qu''un fichier. Fusion impossible !');
     sFileFormatNotSupported:= ReadString('main','sFileFormatNotSupported', 'Format de fichier non supporté');
+    sFileFormatChanged:= Format(
+        ReadString('main','sFileFormatChanged',
+             'Le format de ce ficher est différent ds celui du fichier précédent.%sFusion abandonnée'), [#10]);
     sCopyFile:= ReadString('main','sCopyFile', 'Copie du fichier "%s"');
     sLastFilePCR:= ReadString('main','sLastFilePCR', 'Dernier PCR du fichier %s : %s');
     sJoinFile:= ReadString('main','sJoinFile', 'Raccord du fichier "%s" au PCR %s');
