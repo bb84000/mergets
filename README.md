@@ -8,5 +8,5 @@ Experimental: Please have a copy ofyour files before processing !
 
 Open source program, usage is free<br>
 Windows installer<br>
-Linux: Vopy mergetslinux and lang folder in a directory and launch program
+Linux: Copy mergetslinux and lang folder in a directory and launch program
 
