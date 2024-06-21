@@ -363,7 +363,8 @@ begin
   alertmsg:= '';
   if not visible then alertpos:= poDesktopCenter
   else alertpos:= poMainFormCenter;
-  if (Trunc(Now)>Trunc(FSettings.Settings.LastUpdChk)+days) and (not FSettings.Settings.NoChkNewVer) then
+
+  if true then //(Trunc(Now)>Trunc(FSettings.Settings.LastUpdChk)+days) and (not FSettings.Settings.NoChkNewVer) then
   begin
      FSettings.Settings.LastUpdChk := Trunc(Now);
      AboutBox.Checked:= true;
@@ -750,7 +751,7 @@ var
   x: LongInt;
   tsread, tspos: Int64;
   PATFound, PMTFound: Boolean;
-  i: integer;
+  i, j: integer;
 begin
   // check file type on first file
   Result:= False;
@@ -800,10 +801,10 @@ begin
     end;
     if Mypak.PMT.Is_Pmt and not PMTFound then
     begin
-       PMTfound:= true;
-       Memo1.Append('PMT '+ InttoStr(Mypak.PID));
-       Memo1.Append('Elementary stream '+ Mypak.PMT.aElem_Stream[0].ES_sdef+ ' - PID: '+ InttoStr(Mypak.PMT.aElem_Stream[0].ES_PID));
-       Memo1.Append('Elementary stream info length '+InttoStr(Mypak.PMT.aElem_Stream[0].ES_info_length));
+      PMTfound:= true;
+      Memo1.Append('PMT '+ InttoStr(Mypak.PID));
+      for j:= 0 to length(Mypak.PMT.aElem_Stream)-1 do
+       Memo1.Append('Elementary stream '+ Mypak.PMT.aElem_Stream[j].ES_sdef+ ' - PID: '+ InttoStr(Mypak.PMT.aElem_Stream[j].ES_PID));
        break;
     end;
 

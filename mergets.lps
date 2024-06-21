@@ -8,9 +8,9 @@
       <Unit>
         <Filename Value="mergets.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="10"/>
         <CursorPos Y="25"/>
-        <UsageCount Value="114"/>
+        <UsageCount Value="119"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -21,15 +21,14 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
-        <UsageCount Value="114"/>
+        <UsageCount Value="119"/>
       </Unit>
       <Unit>
         <Filename Value="history.txt"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="5"/>
         <CursorPos X="26" Y="27"/>
-        <UsageCount Value="90"/>
+        <UsageCount Value="95"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Text"/>
       </Unit>
@@ -42,15 +41,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="335"/>
         <CursorPos X="39" Y="353"/>
-        <UsageCount Value="73"/>
+        <UsageCount Value="78"/>
       </Unit>
       <Unit>
         <Filename Value="definitions.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="32"/>
-        <CursorPos X="6" Y="297"/>
-        <UsageCount Value="33"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="29"/>
+        <CursorPos X="48" Y="42"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -58,9 +57,10 @@
         <ComponentName Value="FMergeTS"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="351"/>
-        <CursorPos X="7" Y="156"/>
-        <UsageCount Value="54"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="884"/>
+        <CursorPos X="23" Y="885"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -138,10 +138,10 @@
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="314"/>
         <CursorPos X="3" Y="331"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -156,10 +156,12 @@
         <ComponentName Value="AboutDlg"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="59"/>
-        <CursorPos Y="87"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="74"/>
+        <CursorPos X="3" Y="93"/>
         <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\openssl\src\openssl.pas"/>
@@ -170,33 +172,37 @@
       </Unit>
       <Unit>
         <Filename Value="lang\en.lng"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="66"/>
         <CursorPos Y="26"/>
         <UsageCount Value="24"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
       <Unit>
         <Filename Value="lang\fr.lng"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="15"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="42"/>
         <CursorPos Y="26"/>
         <UsageCount Value="24"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\include\application.inc"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="2268"/>
         <CursorPos X="24" Y="2285"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\Packets\Lazbbcomponents\lazbbosversion.pas"/>
         <UnitName Value="lazbbOsVersion"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="626"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="458"/>
         <UsageCount Value="18"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\sysinth.inc"/>
@@ -215,10 +221,10 @@
       </Unit>
       <Unit>
         <Filename Value="packets1.pas"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="328"/>
-        <CursorPos Y="379"/>
-        <UsageCount Value="26"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="364"/>
+        <CursorPos X="44" Y="391"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -231,10 +237,10 @@
       <Unit>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="1592"/>
         <CursorPos X="15" Y="1609"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -242,71 +248,15 @@
         <ComponentName Value="FCalendrier"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="426"/>
         <CursorPos X="29" Y="454"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="27" Column="10" TopLine="11"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="125" Column="38" TopLine="98"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="360" Column="32" TopLine="332"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="125" Column="26" TopLine="110"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="199" Column="44" TopLine="191"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="360" Column="44" TopLine="332"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="368" Column="45" TopLine="340"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="373" Column="59" TopLine="345"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="629" Column="72" TopLine="601"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="24" Column="10" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="27" Column="10" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="126" Column="42" TopLine="98"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="200" Column="44" TopLine="184"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="361" Column="46" TopLine="344"/>
-      </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
         <Caret Line="200" Column="44" TopLine="183"/>
@@ -370,6 +320,62 @@
       <Position>
         <Filename Value="mergets1.pas"/>
         <Caret Line="191" Column="31" TopLine="163"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="805" Column="63" TopLine="789"/>
+      </Position>
+      <Position>
+        <Filename Value="packets1.pas"/>
+        <Caret Line="131" Column="29" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="805" Column="60" TopLine="791"/>
+      </Position>
+      <Position>
+        <Filename Value="packets1.pas"/>
+        <Caret Line="108" Column="5" TopLine="91"/>
+      </Position>
+      <Position>
+        <Filename Value="packets1.pas"/>
+        <Caret Line="385" Column="65" TopLine="364"/>
+      </Position>
+      <Position>
+        <Filename Value="packets1.pas"/>
+        <Caret Line="371" Column="2" TopLine="358"/>
+      </Position>
+      <Position>
+        <Filename Value="packets1.pas"/>
+        <Caret Line="376" Column="52" TopLine="363"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="806" Column="76" TopLine="779"/>
+      </Position>
+      <Position>
+        <Filename Value="packets1.pas"/>
+        <Caret Line="389" Column="43" TopLine="363"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="806" Column="123" TopLine="796"/>
+      </Position>
+      <Position>
+        <Filename Value="packets1.pas"/>
+        <Caret Line="391" Column="44" TopLine="364"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="17" Column="68"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="366" Column="37" TopLine="350"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="372" Column="29" TopLine="350"/>
       </Position>
     </JumpHistory>
     <RunParams>

@@ -105,6 +105,7 @@ Language    }
     ES_ISO_language: Byte;
     ES_Lang_text_length: Byte;
     ES_lang_text: Pchar;            //
+
   end;
 
   TPMT = record
@@ -336,6 +337,7 @@ function TSPacket.GetPMT: Boolean;
 var
   Patofset: Integer;
   remain_bytes: Integer;
+  i: Integer;
 begin
   result:= False;
   PMT:= Default(TPMT);
@@ -366,18 +368,30 @@ begin
       if PMT.program_info_length=0 then
       begin
         Remain_bytes:= PMT.Section_length-9;
-        setLength(PMT.aElem_Stream, 1);
-        PMT.aElem_Stream[0].ES_Type:= data[17+Patofset];
-        PMT.aElem_Stream[0].ES_sdef:= STREAM_TYPE_TABLE [PMT.aElem_Stream[0].ES_Type].sdes;
-        PMT.aElem_Stream[0].ES_ldef:= STREAM_TYPE_TABLE [PMT.aElem_Stream[0].ES_Type].ldes;
-        PMT.aElem_Stream[0].ES_Rsrv_0:= data[18+Patofset] and $E0 shr 5;
-        PMT.aElem_Stream[0].ES_PID:= (data[18+Patofset] and $1F shl 8) + data[19+Patofset];
-        PMT.aElem_Stream[0].ES_Rsrv_1:= data[20+Patofset] and $F0 shr 4;
-        PMT.aElem_Stream[0].ES_IL_Rsrv:= data[20+Patofset] and $C shr 2;
-        PMT.aElem_Stream[0].ES_info_length:= (data[20+Patofset] and $3 shl 8) + data[21+Patofset];
-        PMT.aElem_Stream[0].ES_Descriptor:= data[22+Patofset];
+        setLength(PMT.aElem_Stream, 20);
+        for i:= 0 to 9 do
+        begin
 
-        Remain_bytes:= Remain_bytes-5-PMT.aElem_Stream[0].ES_info_length;
+          PMT.aElem_Stream[i].ES_Type:= data[17+Patofset];
+          PMT.aElem_Stream[i].ES_sdef:= STREAM_TYPE_TABLE [PMT.aElem_Stream[i].ES_Type].sdes;
+          PMT.aElem_Stream[i].ES_ldef:= STREAM_TYPE_TABLE [PMT.aElem_Stream[i].ES_Type].ldes;
+          PMT.aElem_Stream[i].ES_Rsrv_0:= data[18+Patofset] and $E0 shr 5;
+          PMT.aElem_Stream[i].ES_PID:= (data[18+Patofset] and $1F shl 8) + data[19+Patofset];
+          PMT.aElem_Stream[i].ES_Rsrv_1:= data[20+Patofset] and $F0 shr 4;
+          PMT.aElem_Stream[i].ES_IL_Rsrv:= data[20+Patofset] and $C shr 2;
+          PMT.aElem_Stream[i].ES_info_length:= data[21+Patofset];
+          if PMT.aElem_Stream[i].ES_info_length > 0 then
+          begin
+            PMT.aElem_Stream[i].ES_Descriptor:= data[22+Patofset];
+          end;
+          Remain_bytes:= Remain_bytes-5-PMT.aElem_Stream[i].ES_info_length;
+          Patofset:= Patofset+5+PMT.aElem_Stream[i].ES_info_length;
+          if Remain_bytes <= 4 then
+          begin
+            setLength(PMT.aElem_Stream, i+1);
+            break;
+          end;
+        end;
       end;
     end;
 

@@ -39,7 +39,7 @@ const
   (strm_typ:$03; elem_typ:TS_TYPE_AUD; sdes:'MPEG-1 Audio'; ldes:'ISO/IEC 11172-3 (MPEG-1 audio)'),
   (strm_typ:$04; elem_typ:TS_TYPE_AUD; sdes:'MPEG-2 Audio'; ldes:'ISO/IEC 13818-3 (MPEG-2 halved sample rate audio)'),
   (strm_typ:$05; elem_typ:TS_TYPE_USR; sdes:'Private'; ldes:'ITU-T Rec. H.222 and ISO/IEC 13818-1 (MPEG-2 tabled data)'),
-  (strm_typ:$06; elem_typ:TS_TYPE_AUD; sdes:'AC3|TT|LPCM'; ldes:'ITU-T Rec. H.222 and ISO/IEC 13818-1 (MPEG-2 packetized data) '+
+  (strm_typ:$06; elem_typ:TS_TYPE_AUD; sdes:'E-AC3'; ldes:'ITU-T Rec. H.222 and ISO/IEC 13818-1 (MPEG-2 packetized data) '+
                                                                 'privately defined (i.e., DVB subtitles/VBI and AC-3)'),
   (strm_typ:$07; elem_typ:TS_TYPE_USR; sdes:'MHEG'; ldes:'ISO/IEC 13522 (MHEG)'),
   (strm_typ:$08; elem_typ:TS_TYPE_USR; sdes:'DSM-CC'; ldes:'ITU-T Rec. H.222 and ISO/IEC 13818-1 DSM CC'),
@@ -61,7 +61,7 @@ const
   (strm_typ:$18; elem_typ:TS_TYPE_USR; sdes:'MPEG-2'; ldes:'ISO/IEC 13818-6 DSM CC Object Carousel metadata'),
   (strm_typ:$19; elem_typ:TS_TYPE_USR; sdes:'MPEG-2'; ldes:'ISO/IEC 13818-6 Synchronized Download Protocol metadata'),
   (strm_typ:$1A; elem_typ:TS_TYPE_USR; sdes:'IPMP'; ldes:'ISO/IEC 13818-11 IPMP)'),
-  (strm_typ:$1B; elem_typ:TS_TYPE_VID; sdes:'H.264'; ldes:'ITU-T Rec. H.264 and ISO/IEC 14496-10 (lower bit-rate video)'),
+  (strm_typ:$1B; elem_typ:TS_TYPE_VID; sdes:'H.264 Video'; ldes:'ITU-T Rec. H.264 and ISO/IEC 14496-10 (lower bit-rate video)'),
   (strm_typ:$1C; elem_typ:TS_TYPE_AUD; sdes:'MPEG-4'; ldes:'ISO/IEC 14496-3 (MPEG-4 raw audio)'),
   (strm_typ:$1D; elem_typ:TS_TYPE_USR; sdes:'MPEG-4'; ldes:'ISO/IEC 14496-17 (MPEG-4 text)'),
   (strm_typ:$1E; elem_typ:TS_TYPE_VID; sdes:'MPEG-4'; ldes:'ISO/IEC 23002-3 (MPEG-4 auxiliary video)'),
