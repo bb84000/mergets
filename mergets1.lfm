@@ -904,7 +904,6 @@ object FMergeTS: TFMergeTS
       'Professional'
       'Server'
     )
-
     Left = 396
     Top = 216
   end

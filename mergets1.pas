@@ -363,7 +363,7 @@ begin
   alertmsg:= '';
   if not visible then alertpos:= poDesktopCenter
   else alertpos:= poMainFormCenter;
-  if true then //(Trunc(Now)>Trunc(FSettings.Settings.LastUpdChk)+days) and (not FSettings.Settings.NoChkNewVer) then
+  if (Trunc(Now)>Trunc(FSettings.Settings.LastUpdChk)+days) and (not FSettings.Settings.NoChkNewVer) then
   begin
      FSettings.Settings.LastUpdChk := Trunc(Now);
      AboutBox.Checked:= true;
