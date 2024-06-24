@@ -91,7 +91,7 @@ type
     OKBtn, YesBtn, NoBtn, CancelBtn: String;
     progname: String;
     ConfigFileName: string;
-    HttpErrMsgNames: array [0..16] of string;
+    HttpErrMsgNames: array [0..17] of string;
     filtyp: tstype;
     //sTSfile, SMTSfile: String;
     SettingsChanged, SettingsStateChanged: Boolean;
@@ -363,7 +363,6 @@ begin
   alertmsg:= '';
   if not visible then alertpos:= poDesktopCenter
   else alertpos:= poMainFormCenter;
-
   if true then //(Trunc(Now)>Trunc(FSettings.Settings.LastUpdChk)+days) and (not FSettings.Settings.NoChkNewVer) then
   begin
      FSettings.Settings.LastUpdChk := Trunc(Now);
@@ -371,6 +370,13 @@ begin
      AboutBox.ErrorMessage:='';
      sNewVer:= AboutBox.ChkNewVersion;
      errmsg:= AboutBox.ErrorMessage;
+{     if errmsg='NoSSL' then
+     begin
+       alertmsg:= sNoInstalledSSL;
+       if AlertDlg(Caption,  alertmsg, [OKBtn, CancelBtn, sNoLongerChkUpdates],
+                    true, mtError, alertpos)= mrYesToAll then FSettings.Settings.NoChkNewVer:= true;
+       exit;
+     end; }
      // Retry if nothing found the first time
      if (length(sNewVer)=0) and (length(errmsg)=0)then
      begin
@@ -914,7 +920,6 @@ begin
     //Main Form  & components captions
     Caption:=ReadString('main','Caption','Fusion de fichiers TS');
     sUse64bitcaption:= ReadString('main', 'sUse64bitcaption)', 'Utilisez la version 64 bits de ce programme');
-
     SBtnMerge.Hint:=ReadString('main','SBtnMerge.Hint', SBtnMerge.Hint);
     SBtnSettings.Hint:=ReadString('main','SBtnSettings.Hint', SBtnSettings.Hint);
     SBtnAbout.Hint:=ReadString('main','SBtnAbout.Hint',SBtnAbout.Hint);
@@ -988,7 +993,7 @@ begin
     HttpErrMsgNames[14]:=ReadString('HttpErr','strSocketAcceptWouldBlock','La connexion pourrait bloquer le socket: %s');
     HttpErrMsgNames[15]:=ReadString('HttpErr','strSocketIOTimeOut','Impossible de fixer le timeout E/S à %s');
     HttpErrMsgNames[16]:=ReadString('HttpErr','strErrNoStream','Flux du socket non assigné');
-
+    HttpErrMsgNames[17]:=ReadString('HttpErr','sNoInstallledSSL', 'Bibliothèques SSL non installées');
   end;
 end;
 

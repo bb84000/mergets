@@ -33,6 +33,7 @@ SBtnMerge.Hint=Merge selected files
 SBtnSelectTSFiles.Hint=Select files to merge
 SBtnMergedTS.Hint=Défine the merged file
 
+
 sNoLongerChkUpdates=No longer check updates
 sUpdateAlertBox=Current version: %sA new version %s is available
 sCannotGetNewVerList=Cannot get new versions list
@@ -122,4 +123,5 @@ strSocketAcceptWouldBlock=Accept would block on socket: %s
 strSocketIOTimeOut=Failed to set IO Timeout to %s
 strErrNoStream=Socket stream not assigned
 
-
+; SSL
+sNoInstallledSSL=SSL libraries not installed
