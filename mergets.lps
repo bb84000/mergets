@@ -174,7 +174,6 @@
       </Unit>
       <Unit>
         <Filename Value="lang\en.lng"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="93"/>
         <CursorPos X="11" Y="127"/>
@@ -184,8 +183,10 @@
       </Unit>
       <Unit>
         <Filename Value="lang\fr.lng"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <CursorPos X="7" Y="93"/>
+        <TopLine Value="95"/>
+        <CursorPos X="10" Y="129"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
