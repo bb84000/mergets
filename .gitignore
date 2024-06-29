@@ -1,4 +1,5 @@
 backup/**
+lang/backup/**
 lib/**
 InstallMergeTS.exe
 mergetswin32.exe

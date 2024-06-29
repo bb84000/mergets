@@ -1,7 +1,7 @@
 object FMergeTS: TFMergeTS
-  Left = 685
+  Left = 405
   Height = 435
-  Top = 290
+  Top = 225
   Width = 600
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -897,16 +897,6 @@ object FMergeTS: TFMergeTS
     Left = 472
     Top = 200
   end
-  object OSVersion: TbbOsVersion
-    ProdStrs.Strings = (
-      ''
-      'Home'
-      'Professional'
-      'Server'
-    )
-    Left = 396
-    Top = 216
-  end
   object TimerTime: TLFPTimer
     Enabled = True
     Interval = 1000
@@ -941,5 +931,15 @@ object FMergeTS: TFMergeTS
     OnTerminate = AsyncProcess1Terminate
     Left = 48
     Top = 224
+  end
+  object OsVersion: TbbOsVersion
+    ProdStrs.Strings = (
+      ''
+      'Home'
+      'Professional'
+      'Server'
+    )
+    Left = 363
+    Top = 201
   end
 end

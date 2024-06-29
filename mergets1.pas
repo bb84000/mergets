@@ -26,11 +26,11 @@ type
 
   TFMergeTS = class(TForm)
     AsyncProcess1: TAsyncProcess;
+    OsVersion: TbbOsVersion;
     CBAdsapter: TComboBox;
     LTime1: TLabel;
     LVersion: TLabel;
     MnuItemChangeTime: TMenuItem;
-    OSVersion: TbbOsVersion;
     CBtsfiles: TComboBox;
     EMergedTS: TEdit;
     PButtons: TPanel;
@@ -305,6 +305,7 @@ begin
   end;
   LangFile:= TBbIniFile.Create(ExtractFilePath(Application.ExeName) + 'lang'+PathDelim+FSettings.Settings.LangStr+'.lng');
   Translate(LangFile);
+
   SettingsChanged := false;
 end;
 
@@ -370,14 +371,6 @@ begin
      AboutBox.ErrorMessage:='';
      sNewVer:= AboutBox.ChkNewVersion;
      errmsg:= AboutBox.ErrorMessage;
-{     if errmsg='NoSSL' then
-     begin
-       alertmsg:= sNoInstalledSSL;
-       if AlertDlg(Caption,  alertmsg, [OKBtn, CancelBtn, sNoLongerChkUpdates],
-                    true, mtError, alertpos)= mrYesToAll then FSettings.Settings.NoChkNewVer:= true;
-       exit;
-     end; }
-     // Retry if nothing found the first time
      if (length(sNewVer)=0) and (length(errmsg)=0)then
      begin
        Application.ProcessMessages;

@@ -21,8 +21,8 @@
       <UseVersionInfo Value="True"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="3"/>
-      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.1.3"/>
+      <BuildNr Value="4"/>
+      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.1.4"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
@@ -67,6 +67,10 @@
       </Unit>
       <Unit>
         <Filename Value="definitions.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\Divers\labelres.rc"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
