@@ -20,9 +20,8 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MinorVersionNr Value="1"/>
-      <RevisionNr Value="1"/>
-      <BuildNr Value="4"/>
-      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.1.4"/>
+      <RevisionNr Value="2"/>
+      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.2.0"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
@@ -35,6 +34,9 @@
       <FormatVersion Value="2"/>
     </RunParams>
     <RequiredPackages>
+      <Item>
+        <PackageName Value="ExCtrlsPkg"/>
+      </Item>
       <Item>
         <PackageName Value="lazbbcomponents"/>
       </Item>
@@ -73,6 +75,13 @@
         <Filename Value="..\Divers\labelres.rc"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="..\lazbbunits\lazbbupdatedlg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="UpdateDlg"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -93,7 +102,6 @@
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
-        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
       <Options>

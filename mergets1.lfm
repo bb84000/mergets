@@ -11,7 +11,7 @@ object FMergeTS: TFMergeTS
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '3.4.0.0'
+  LCLVersion = '3.8.0.0'
   object Ltsfiles: TLabel
     Left = 16
     Height = 15

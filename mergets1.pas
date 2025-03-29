@@ -1,7 +1,7 @@
 //******************************************************************************
 // MergeTs : utility to assemble TS files parts
 // Adapters supported : Strong 8211, Strong 8222 and clones
-// bb - sdtp - may 2024
+// bb - sdtp - march 2025
 //******************************************************************************
 
 unit mergets1;
@@ -15,8 +15,8 @@ uses
   Win32Proc,
   {$ENDIF}Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, Buttons, ExtCtrls, Menus, AsyncProcess, lazbbutils, lazbbOsVersion,
-  lazbbcontrols, lazbbaboutdlg, lazbbinifiles, LazUTF8, settings1, fileutil,
-  Translations, packets1, process;
+  lazbbcontrols, lazbbaboutdlg, lazbbupdatedlg, lazbbinifiles, LazUTF8, settings1, fileutil,
+  Translations, packets1, process, ExProgressbar;
 
 type
 
@@ -206,13 +206,15 @@ begin
   Memo1.Text:='';
   version := GetVersionInfo.ProductVersion;
   SD1.InitialDir:= Userpath+'Videos';
-
+  // Load some location and other infos dor AboutBox and UpdateDlg
   IniFile:= TBbInifile.Create('mergets.ini');
   AboutBox.ChkVerURL := IniFile.ReadString('urls', 'ChkVerURL','https://github.com/bb84000/mergets/releases/latest');
   AboutBox.UrlWebsite:= IniFile.ReadString('urls', 'UrlWebSite','https://www.sdtp.com');
   AboutBox.UrlSourceCode:=IniFile.ReadString('urls', 'UrlSourceCode','https://github.com/bb84000/mergets');
-  AboutBox.UrlProgSite:= IniFile.ReadString('urls', 'UrlSourceCode','https://github.com/bb84000/mergets');
+  AboutBox.UrlProgSite:= IniFile.ReadString('urls', 'UrlSourceCode','');
   ChkVerInterval:= IniFile.ReadInt64('urls', 'ChkVerInterval', 3);
+  UpdateDlg.UrlInstall:= IniFile.ReadString('urls', 'UrlInstall', 'https://github.com/bb84000/mergets/blob/main/mergets.zip?raw=true');
+  UpdateDlg.ExeInstall:= IniFile.ReadString('urls', 'ExeInstall', 'Installmergets.exe');       // Installer executable
   if Assigned(IniFile) then IniFile.free;
   // Now, main settings
   FSettings.Settings.AppName:= LowerCase(ProgName);
@@ -253,6 +255,9 @@ begin
   AboutBox.Version:= Version;
   AboutBox.ProgName:= ProgName;
   AboutBox.LastUpdate:= FSettings.Settings.LastUpdChk;
+  // Populate UpdateBox with proper variables
+  UpdateDlg.ProgName:= ProgName;
+  UpdateDlg.NewVersion:= false;
   FSettings.Settings.OnChange := @SettingsOnChange;
   FSettings.Settings.OnStateChange := @SettingsOnStateChange;
   FSettings.LStatus.Caption := OSVersion.VerDetail;
@@ -395,7 +400,13 @@ begin
        FSettings.Settings.LastVersion:= sNewVer;
        AboutBox.LUpdate.Caption := Format(AboutBox.sUpdateAvailable, [sNewVer]);
        AboutBox.NewVersion:= true;
-       AboutBox.ShowModal;
+       UpdateDlg.sNewVer:= version;
+       UpdateDlg.NewVersion:= true;
+       {$IFDEF WINDOWS}
+         if UpdateDlg.ShowModal = mryes then Close;    // New version install experimental
+       {$ELSE}
+         AboutBox.ShowModal;
+       {$ENDIF}
      end else
      begin
        AboutBox.LUpdate.Caption:= AboutBox.sNoUpdateAvailable;
@@ -957,6 +968,9 @@ begin
     // About box
     AboutBox.LVersion.Hint:= OSVersion.VerDetail;
     AboutBox.Translate(LngFile);
+
+    // UpdateDlg
+    UpdateDlg.Translate (LangFile);
 
     // Alert
     sUpdateAlertBox:=ReadString('main','sUpdateAlertBox','Version actuelle: %sUne nouvelle version %s est disponible. Cliquer pour la télécharger');

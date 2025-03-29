@@ -8,9 +8,9 @@
       <Unit>
         <Filename Value="mergets.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="9"/>
-        <CursorPos Y="25"/>
-        <UsageCount Value="142"/>
+        <EditorIndex Value="11"/>
+        <CursorPos X="42" Y="13"/>
+        <UsageCount Value="148"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -21,14 +21,15 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
-        <UsageCount Value="142"/>
+        <UsageCount Value="148"/>
       </Unit>
       <Unit>
         <Filename Value="history.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
-        <CursorPos X="25" Y="33"/>
-        <UsageCount Value="118"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="2"/>
+        <CursorPos X="56" Y="36"/>
+        <UsageCount Value="124"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Text"/>
       </Unit>
@@ -41,7 +42,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="335"/>
         <CursorPos X="39" Y="353"/>
-        <UsageCount Value="101"/>
+        <UsageCount Value="107"/>
       </Unit>
       <Unit>
         <Filename Value="definitions.pas"/>
@@ -49,23 +50,36 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="29"/>
         <CursorPos X="48" Y="42"/>
-        <UsageCount Value="61"/>
+        <UsageCount Value="67"/>
       </Unit>
       <Unit>
         <Filename Value="..\Divers\labelres.rc"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="9"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="45"/>
         <DefaultSyntaxHighlighter Value="None"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\lazbbunits\lazbbupdatedlg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="UpdateDlg"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="5" Y="96"/>
+        <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="mergets1.pas"/>
         <ComponentName Value="FMergeTS"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <CursorPos X="65" Y="17"/>
-        <UsageCount Value="68"/>
+        <TopLine Value="383"/>
+        <CursorPos X="6" Y="397"/>
+        <UsageCount Value="71"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -77,10 +91,10 @@
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\classes\classesh.inc"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="1005"/>
         <CursorPos X="15" Y="974"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -174,20 +188,20 @@
       </Unit>
       <Unit>
         <Filename Value="lang\en.lng"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="93"/>
-        <CursorPos X="11" Y="127"/>
-        <UsageCount Value="37"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="106"/>
+        <CursorPos Y="140"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
       <Unit>
         <Filename Value="lang\fr.lng"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="95"/>
-        <CursorPos X="10" Y="129"/>
-        <UsageCount Value="37"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="106"/>
+        <CursorPos X="24" Y="140"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
@@ -201,10 +215,10 @@
       <Unit>
         <Filename Value="..\Packets\Lazbbcomponents\lazbbosversion.pas"/>
         <UnitName Value="lazbbOsVersion"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="648"/>
-        <CursorPos Y="677"/>
-        <UsageCount Value="31"/>
+        <CursorPos Y="660"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -312,65 +326,37 @@
       </Unit>
       <Unit>
         <Filename Value="..\Packets\Lazbbcomponents\lazbbosversion_defs.rc"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <CursorPos X="39" Y="2"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
       <Unit>
         <Filename Value="..\lazbbunits\lazbbinifiles.pas"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="134"/>
         <CursorPos X="4" Y="151"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="mergets.txt"/>
-        <EditorIndex Value="6"/>
-        <UsageCount Value="10"/>
+        <EditorIndex Value="8"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Text"/>
       </Unit>
+      <Unit>
+        <Filename Value="mergets.ini"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="31" Y="10"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Ini"/>
+      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="889" Column="38" TopLine="861"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="896" Column="22" TopLine="868"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="897" Column="15" TopLine="869"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="40" Column="76" TopLine="20"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="111" Column="32" TopLine="84"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="889" Column="38" TopLine="861"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="896" Column="22" TopLine="868"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="897" Column="15" TopLine="869"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="902" Column="32" TopLine="874"/>
-      </Position>
       <Position>
         <Filename Value="mergets1.pas"/>
         <Caret Line="889" Column="30" TopLine="879"/>
@@ -455,10 +441,51 @@
         <Filename Value="mergets1.pas"/>
         <Caret Line="17" Column="65"/>
       </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="18" Column="48"/>
+      </Position>
+      <Position>
+        <Filename Value="..\lazbbunits\lazbbupdatedlg.pas"/>
+        <Caret Line="20" Column="3" TopLine="3"/>
+      </Position>
+      <Position>
+        <Filename Value="lang\en.lng"/>
+        <Caret Line="140" TopLine="106"/>
+      </Position>
+      <Position>
+        <Filename Value="..\lazbbunits\lazbbupdatedlg.pas"/>
+        <Caret Line="156" Column="74" TopLine="133"/>
+      </Position>
+      <Position>
+        <Filename Value="..\lazbbunits\lazbbupdatedlg.pas"/>
+        <Caret Line="159" Column="81" TopLine="133"/>
+      </Position>
+      <Position>
+        <Filename Value="..\lazbbunits\lazbbupdatedlg.pas"/>
+        <Caret Line="160" Column="61" TopLine="143"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="217" Column="3"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="218" Column="3" TopLine="201"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="217" Column="67" TopLine="201"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
     </RunParams>
+    <HistoryLists>
+      <List Name="LaunchingApplication" Type="File" Count="1">
+        <Item1 Value="C:\WINDOWS\system32\cmd.exe /C ${TargetCmdLine}"/>
+      </List>
+    </HistoryLists>
   </ProjectSession>
 </CONFIG>

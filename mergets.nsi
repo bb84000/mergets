@@ -228,6 +228,7 @@ Section "" ;No components page, name is not important
   File "${source_dir}\licensf.txt"
   File "${source_dir}\license.txt"
   File "${source_dir}\history.txt"
+  File "${source_dir}\${prog_name}.ini"
   File "${source_dir}\${prog_name}.txt"
   ; delete old lng file
   IfFileExists "$INSTDIR\${prog_name}.lng" 0 +2
@@ -289,6 +290,7 @@ ${EndIf}
 Delete /REBOOTOK "$INSTDIR\${prog_name}.exe"
 Delete "$INSTDIR\history.txt"
 Delete "$INSTDIR\${prog_name}.txt"
+Delete "$INSTDIR\${prog_name}.ini"
 Delete "$INSTDIR\${prog_name}.lng"
 Delete "$INSTDIR\libeay32.dll"
 Delete "$INSTDIR\ssleay32.dll"
