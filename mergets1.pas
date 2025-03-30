@@ -213,7 +213,7 @@ begin
   AboutBox.UrlSourceCode:=IniFile.ReadString('urls', 'UrlSourceCode','https://github.com/bb84000/mergets');
   AboutBox.UrlProgSite:= IniFile.ReadString('urls', 'UrlSourceCode','');
   ChkVerInterval:= IniFile.ReadInt64('urls', 'ChkVerInterval', 3);
-  UpdateDlg.UrlInstall:= IniFile.ReadString('urls', 'UrlInstall', 'https://github.com/bb84000/mergets/blob/main/mergets.zip?raw=true');
+  UpdateDlg.UrlInstall:= IniFile.ReadString('urls', 'UrlInstall', 'https://github.com/bb84000/mergets/raw/refs/heads/main/mergets.zip');
   UpdateDlg.ExeInstall:= IniFile.ReadString('urls', 'ExeInstall', 'Installmergets.exe');       // Installer executable
   if Assigned(IniFile) then IniFile.free;
   // Now, main settings
@@ -400,7 +400,7 @@ begin
        FSettings.Settings.LastVersion:= sNewVer;
        AboutBox.LUpdate.Caption := Format(AboutBox.sUpdateAvailable, [sNewVer]);
        AboutBox.NewVersion:= true;
-       UpdateDlg.sNewVer:= version;
+       UpdateDlg.sNewVer:= sNewVer;
        UpdateDlg.NewVersion:= true;
        {$IFDEF WINDOWS}
          if UpdateDlg.ShowModal = mryes then Close;    // New version install experimental

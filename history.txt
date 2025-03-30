@@ -35,6 +35,9 @@ Version 0.1.1.4 - 29/06/2024
 Version 0.1.2.0 - 30/03/2025
 - Added auto update module (Windows only, Experimental)
 
+Version 0.1.2.1 - 30/03/2025
+- Bug in version display fixed
+
 
 
 
