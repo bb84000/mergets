@@ -1,7 +1,7 @@
 //******************************************************************************
 // MergeTs : utility to assemble TS files parts
 // Adapters supported : Strong 8211, Strong 8222 and clones
-// bb - sdtp - march 2025
+// bb - sdtp - april 2025
 //******************************************************************************
 
 unit mergets1;
@@ -16,8 +16,7 @@ uses
   {$ENDIF}Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, Buttons, ExtCtrls, Menus, AsyncProcess, lazbbutils, lazbbOsVersion,
   lazbbcontrols, lazbbaboutdlg, lazbbupdatedlg, lazbbinifiles, LazUTF8, settings1, fileutil,
-  Translations, packets1, process, ExProgressbar;
-
+  Translations, packets1, process;
 type
 
   TSaveMode = (None, Setting, All);
@@ -208,10 +207,9 @@ begin
   SD1.InitialDir:= Userpath+'Videos';
   // Load some location and other infos dor AboutBox and UpdateDlg
   IniFile:= TBbInifile.Create('mergets.ini');
-  AboutBox.ChkVerURL := IniFile.ReadString('urls', 'ChkVerURL','https://github.com/bb84000/mergets/releases/latest');
+  AboutBox.ChkVerURL := IniFile.ReadString('urls', 'ChkVerURL','https://api.github.com/repos/bb84000/mergets/releases/latest');
   AboutBox.UrlWebsite:= IniFile.ReadString('urls', 'UrlWebSite','https://www.sdtp.com');
   AboutBox.UrlSourceCode:=IniFile.ReadString('urls', 'UrlSourceCode','https://github.com/bb84000/mergets');
-  AboutBox.UrlProgSite:= IniFile.ReadString('urls', 'UrlSourceCode','');
   ChkVerInterval:= IniFile.ReadInt64('urls', 'ChkVerInterval', 3);
   UpdateDlg.UrlInstall:= IniFile.ReadString('urls', 'UrlInstall', 'https://github.com/bb84000/mergets/raw/refs/heads/main/mergets.zip');
   UpdateDlg.ExeInstall:= IniFile.ReadString('urls', 'ExeInstall', 'Installmergets.exe');       // Installer executable
@@ -219,7 +217,7 @@ begin
   // Now, main settings
   FSettings.Settings.AppName:= LowerCase(ProgName);
   ConfigFileName:= MTSAppDataPath+'settings.xml';
-   FSettings.Settings.LangStr:= CurLangStr;
+  FSettings.Settings.LangStr:= CurLangStr;
   // Search previous backups
   if not FileExists(ConfigFileName) then
   begin
@@ -253,8 +251,10 @@ begin
   AboutBox.LVersion.Caption := 'Version: ' + Version + ' (' + OS + OSTarget + ')';
   AboutBox.LUpdate.Hint := AboutBox.sLastUpdateSearch + ': ' + DateToStr(FSettings.Settings.LastUpdChk);
   AboutBox.Version:= Version;
+  AboutBox.LastVersion:= FSettings.Settings.LastVersion;
   AboutBox.ProgName:= ProgName;
   AboutBox.LastUpdate:= FSettings.Settings.LastUpdChk;
+  AboutBox.autoUpdate:= true;          // enable auto update on Aboutbox new version click
   // Populate UpdateBox with proper variables
   UpdateDlg.ProgName:= ProgName;
   UpdateDlg.NewVersion:= false;
@@ -415,14 +415,17 @@ begin
    end else
    begin
     if VersionToInt(FSettings.Settings.LastVersion)>VersionToInt(version) then
-       AboutBox.LUpdate.Caption := Format(AboutBox.sUpdateAvailable, [FSettings.Settings.LastVersion]) else
+       begin
+         AboutBox.LUpdate.Caption := Format(AboutBox.sUpdateAvailable, [FSettings.Settings.LastVersion]);
+         AboutBox.NewVersion:= true ;
+       end else
        begin
          AboutBox.LUpdate.Caption:= AboutBox.sNoUpdateAvailable;
          // Already checked the same day
         if Trunc(FSettings.Settings.LastUpdChk) = Trunc(now) then AboutBox.checked:= true;
        end;
    end;
-   AboutBox.Translate(LangFile);
+   //AboutBox.Translate(LangFile);
 end;
 
 // Event fired by any change of settings values
@@ -450,11 +453,41 @@ end;
 
 
 procedure TFMergeTS.SBtnAboutClick(Sender: TObject);
+var
+  chked: Boolean;
+  alertmsg: String;
 begin
-  AboutBox.Lastupdate:= FSettings.Settings.LastUpdChk;
-  Aboutbox.ShowModal;
-  if AboutBox.Lastupdate <> FSettings.Settings.LastUpdChk then
-  FSettings.Settings.LastUpdChk:= AboutBox.Lastupdate;
+      // If main windows is hidden, place the about box at the center of desktop,
+  // else at the center of main windows
+  if (Sender.ClassName= 'TMenuItem') and not visible then AboutBox.Position:= poDesktopCenter
+  else AboutBox.Position:= poMainFormCenter;
+  AboutBox.LastUpdate:= FSettings.Settings.LastUpdChk;
+  chked:= AboutBox.Checked;
+  AboutBox.ErrorMessage:='';
+  if AboutBox.ShowModal= mrLast then
+    begin
+      UpdateDlg.sNewVer:= AboutBox.LastVersion;
+      UpdateDlg.NewVersion:= true;
+      {$IFDEF WINDOWS}
+        if UpdateDlg.ShowModal = mryes then close;    // New version install experimental
+      {$ELSE}
+        OpenURL(AboutBox.UrlProgSite);
+      {$ENDIF}
+    end;
+  FSettings.Settings.LastVersion:= AboutBox.LastVersion ;
+  // If we have checked update and got an error
+  if length(AboutBox.ErrorMessage)>0 then
+  begin
+    alertmsg := TranslateHttpErrorMsg(AboutBox.ErrorMessage, HttpErrMsgNames);
+    if AlertDlg(Caption,  alertmsg, [OKBtn, CancelBtn, sNoLongerChkUpdates],
+                      true, mtError)= mrYesToAll then FSettings.Settings.NoChkNewVer:= true;
+  end;
+  // Truncate date to avoid changes if there is the same day (hh:mm are in the decimal part of the date)
+  if (not chked) and AboutBox.Checked then FSettings.Settings.LastVersion:= AboutBox.LastVersion;
+  if trunc(AboutBox.LastUpdate) > trunc(FSettings.Settings.LastUpdChk) then
+  begin
+    FSettings.Settings.LastUpdChk:= AboutBox.LastUpdate;
+  end;
 end;
 
 procedure TFMergeTS.SBtnQuitClick(Sender: TObject);

@@ -38,6 +38,9 @@ Version 0.1.2.0 - 30/03/2025
 Version 0.1.2.1 - 30/03/2025
 - Bug in version display fixed
 
+Version 0.1.2.2 - 03/04/2025
+- Enabled auto update from about box
+
 
 
 
