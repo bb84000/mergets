@@ -8,10 +8,10 @@ object FMergeTS: TFMergeTS
   Caption = 'Fusion de fichiers TS'
   ClientHeight = 435
   ClientWidth = 600
+  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '3.8.0.0'
   object Ltsfiles: TLabel
     Left = 16
     Height = 15
@@ -85,9 +85,9 @@ object FMergeTS: TFMergeTS
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    OnClick = SBtnSelectTSFilesClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = SBtnSelectTSFilesClick
   end
   object SBtnMergedTS: TSpeedButton
     Left = 568
@@ -131,9 +131,9 @@ object FMergeTS: TFMergeTS
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    OnClick = SBtnMergedTSClick
     ShowHint = True
     ParentShowHint = False
+    OnClick = SBtnMergedTSClick
   end
   object ProgressBar2: TProgressBar
     Left = 16
@@ -371,9 +371,9 @@ object FMergeTS: TFMergeTS
         0000000000000000000000000000000000000000000000000000
       }
       NumGlyphs = 2
-      OnClick = SBtnMergeClick
       ShowHint = True
       ParentShowHint = False
+      OnClick = SBtnMergeClick
     end
     object SBtnSettings: TSpeedButton
       Left = 56
@@ -530,9 +530,9 @@ object FMergeTS: TFMergeTS
         0000000000000000000000000000000000000000000000000000
       }
       NumGlyphs = 2
-      OnClick = SBtnSettingsClick
       ShowHint = True
       ParentShowHint = False
+      OnClick = SBtnSettingsClick
     end
     object SBtnAbout: TSpeedButton
       Left = 96
@@ -689,9 +689,9 @@ object FMergeTS: TFMergeTS
         7F49000000000000000000000000000000000000000000000000
       }
       NumGlyphs = 2
-      OnClick = SBtnAboutClick
       ShowHint = True
       ParentShowHint = False
+      OnClick = SBtnAboutClick
     end
     object SBtnQuit: TSpeedButton
       Left = 136
@@ -848,9 +848,9 @@ object FMergeTS: TFMergeTS
         0000000000000000000000000000000000000000000000000000
       }
       NumGlyphs = 2
-      OnClick = SBtnQuitClick
       ShowHint = True
       ParentShowHint = False
+      OnClick = SBtnQuitClick
     end
     object CBAdsapter: TComboBox
       Left = 472

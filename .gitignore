@@ -1,6 +1,8 @@
 backup/**
 lang/backup/**
 lib/**
+libcrypto-3-x64.dll
+libssl-3-x64.dll
 InstallMergeTS.exe
 mergetswin32.exe
 mergetswin64.exe

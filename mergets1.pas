@@ -1,7 +1,7 @@
 //******************************************************************************
 // MergeTs : utility to assemble TS files parts
 // Adapters supported : Strong 8211, Strong 8222 and clones
-// bb - sdtp - april 2025
+// bb - sdtp - october 2025
 //******************************************************************************
 
 unit mergets1;
@@ -90,6 +90,7 @@ type
     OKBtn, YesBtn, NoBtn, CancelBtn: String;
     progname: String;
     ConfigFileName: string;
+    idHttpErrMsgNames: array [0..17] of string;
     HttpErrMsgNames: array [0..17] of string;
     filtyp: tstype;
     //sTSfile, SMTSfile: String;
@@ -385,7 +386,7 @@ begin
      if length(sNewVer)=0 then
      begin
        if length(errmsg)=0 then alertmsg:= sCannotGetNewVerList
-       else alertmsg:= TranslateHttpErrorMsg(errmsg, HttpErrMsgNames);
+       else alertmsg:= TranslateidHttpErrorMsg(errmsg, idHttpErrMsgNames);
        if AlertDlg(Caption,  alertmsg, [OKBtn, CancelBtn, sNoLongerChkUpdates],
                     true, mtError, alertpos)= mrYesToAll then FSettings.Settings.NoChkNewVer:= true;
         exit;
@@ -425,6 +426,7 @@ begin
         if Trunc(FSettings.Settings.LastUpdChk) = Trunc(now) then AboutBox.checked:= true;
        end;
    end;
+   // AboutBox.LUpdate.Hint:= AboutBox.sLastUpdateSearch + ': ' + DateToStr(Settings.LastUpdChk);   
    //AboutBox.Translate(LangFile);
 end;
 
@@ -478,7 +480,7 @@ begin
   // If we have checked update and got an error
   if length(AboutBox.ErrorMessage)>0 then
   begin
-    alertmsg := TranslateHttpErrorMsg(AboutBox.ErrorMessage, HttpErrMsgNames);
+    alertmsg := TranslateidHttpErrorMsg(AboutBox.ErrorMessage, idHttpErrMsgNames);
     if AlertDlg(Caption,  alertmsg, [OKBtn, CancelBtn, sNoLongerChkUpdates],
                       true, mtError)= mrYesToAll then FSettings.Settings.NoChkNewVer:= true;
   end;
@@ -1009,10 +1011,16 @@ begin
     sUpdateAlertBox:=ReadString('main','sUpdateAlertBox','Version actuelle: %sUne nouvelle version %s est disponible. Cliquer pour la télécharger');
     sNoLongerChkUpdates:=ReadString('main','sNoLongerChkUpdates','Ne plus rechercher les mises à jour');
 
-
     //Settings
     FSettings.Translate(LngFile);
     FSettings.Lstatus.Caption:= OSVersion.VerDetail;
+
+    // indy Error messages
+    idHttpErrMsgNames[0]:= ReadString('idHttpErr','idSSLLibraryNotFound','Bibliothèque SSL introuvable');
+    idHttpErrMsgNames[1]:= ReadString('idHttpErr','IdUnknownProtocol', 'Protocole inconnu');
+    idHttpErrMsgNames[2]:= ReadString('idHttpErr','IdHostNotFound', 'Hôte non trouvé');
+    idHttpErrMsgNames[3]:= ReadString('idHttpErr','idHTTP302','Page redirigée provisoirement (302)');
+    idHttpErrMsgNames[10]:= ReadString('idHttpErr','IdUnknownError', 'Erreur inconnue: %s');
 
     // HTTP Error messages
     HttpErrMsgNames[0] := ReadString('HttpErr','SErrInvalidProtocol','Protocole "%s" invalide');

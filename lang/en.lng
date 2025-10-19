@@ -89,6 +89,8 @@ Server=Server
 22000=v 21H2 "October 2021 Initial Version"
 22621=v 22H2 "September 2022 update"
 22631=v 23H2 "October 2023 update"
+26100=v 24H2 "Octobre 2024"
+26200=v 25H2 "Octobre 2025"
 
 [AboutBox]
 Caption=About %s
@@ -100,6 +102,14 @@ LProgPage.Caption=Program home page
 UrlProgSite=/wiki
 LWebSite.Caption=Web site home page
 LSourceCode.Caption=Source code Web page
+
+[idHttpErr]
+idSSLLibraryNotFound=Impossible de charger la bibibliothèque SSL
+IdUnknownProtocol=Protocole inconnu
+IdHostNotFound=Hôte non trouvé
+idHTTP302=Page redirigée provisoirement (302)
+IdUnknownError=Erreur inconnue: %s
+
 
 [HttpErr]
 ;Http error messages

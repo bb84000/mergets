@@ -1,6 +1,6 @@
 ;------------------------------------------------------------------------------------------
 ; NSIS Installation script for 32/64 bit MergeTS
-; bb - sdtp - March 2024
+; bb - sdtp - October 2025
 ;------------------------------------------------------------------------------------------
 
 !define FileVersion "1.0.0.3"
@@ -183,23 +183,21 @@ Section "" ;No components page, name is not important
   ; with 64 or 32 in their name, the renamed
   File  "${source_dir}\${prog_name}win64.exe"
   File  "${source_dir}\${prog_name}win32.exe"
-  File "/oname=libeay3264.dll" "${lazarus_dir}\openssl\win64\libeay32.dll"
-  File "/oname=ssleay3264.dll" "${lazarus_dir}\openssl\win64\ssleay32.dll"
-  File "/oname=libeay3232.dll" "${lazarus_dir}\openssl\win32\libeay32.dll"
-  File "/oname=ssleay3232.dll" "${lazarus_dir}\openssl\win32\ssleay32.dll"
-  
+
   ${If} ${RunningX64}  ; change registry entries and install dir for 64 bit
      StrCpy $exe_to_inst "64.exe"
      StrCpy $dll_to_inst "64.dll"
      StrCpy $exe_to_del "32.exe"
      StrCpy $dll_to_del "32.dll"
-     StrCpy $sysfolder "$WINDIR\sysnative"
+     File "${lazarus_dir}\openssl\libssl-3-x64.dll"
+     File "${lazarus_dir}\openssl\libcrypto-3-x64.dll"
   ${Else}
      StrCpy $exe_to_inst "32.exe"
      StrCpy $dll_to_inst "32.dll"
      StrCpy $exe_to_del "64.exe"
      StrCpy $dll_to_del "64.dll"
-     StrCpy $sysfolder "$WINDIR\system32"
+     File "${lazarus_dir}\openssl\libssl-3.dll"
+     File "${lazarus_dir}\openssl\libcrypto-3.dll"
   ${EndIf}
   
   SetOutPath "$INSTDIR"
@@ -210,21 +208,10 @@ Section "" ;No components page, name is not important
   
     ; Rename 32 or 64 files
   Rename /REBOOTOK "$INSTDIR\${prog_name}win$exe_to_inst" "$INSTDIR\${prog_name}.exe"
-  ; Install ssl libraries if not already in system folder
-  IfFileExists "$sysfolder\libeay32.dll" ssl_lib_found ssl_lib_not_found
-  ssl_lib_not_found:
-    File "${lazarus_dir}\openssl\OpenSSL License.txt"
-    Rename /REBOOTOK "$INSTDIR\libeay32$dll_to_inst" "$INSTDIR\libeay32.dll"
-    Rename /REBOOTOK "$INSTDIR\ssleay32$dll_to_inst" "$INSTDIR\\ssleay32.dll"
-    Goto ssl_lib_set
-  ssl_lib_found:
-    Delete "$INSTDIR\libeay32$dll_to_inst"
-    Delete "$INSTDIR\ssleay32$dll_to_inst"
-  ssl_lib_set:
   ; delete non used files
   Delete "$INSTDIR\${prog_name}win$exe_to_del"
-  Delete "$INSTDIR\libeay32$dll_to_del"
-  Delete "$INSTDIR\ssleay32$dll_to_del"
+  ; Install other files
+  File "${lazarus_dir}\openssl\OpenSSL License.txt"
   File "${source_dir}\licensf.txt"
   File "${source_dir}\license.txt"
   File "${source_dir}\history.txt"
@@ -292,8 +279,6 @@ Delete "$INSTDIR\history.txt"
 Delete "$INSTDIR\${prog_name}.txt"
 Delete "$INSTDIR\${prog_name}.ini"
 Delete "$INSTDIR\${prog_name}.lng"
-Delete "$INSTDIR\libeay32.dll"
-Delete "$INSTDIR\ssleay32.dll"
 Delete "$INSTDIR\licensf.txt"
 Delete "$INSTDIR\license.txt"
 Delete "$INSTDIR\OpenSSL License.txt"

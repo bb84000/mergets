@@ -41,6 +41,10 @@ Version 0.1.2.1 - 30/03/2025
 Version 0.1.2.2 - 03/04/2025
 - Enabled auto update from about box
 
+Version 0.1.3.0 - 19/10/2025
+- Updated for Windows 25H2
+- Updated for OpenSSL v. 3
+
 
 
 
