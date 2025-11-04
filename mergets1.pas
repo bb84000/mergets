@@ -1,7 +1,7 @@
 //******************************************************************************
 // MergeTs : utility to assemble TS files parts
 // Adapters supported : Strong 8211, Strong 8222 and clones
-// bb - sdtp - october 2025
+// bb - sdtp - november 2025
 //******************************************************************************
 
 unit mergets1;
@@ -16,7 +16,7 @@ uses
   {$ENDIF}Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, Buttons, ExtCtrls, Menus, AsyncProcess, lazbbutils, lazbbOsVersion,
   lazbbcontrols, lazbbaboutdlg, lazbbupdatedlg, lazbbinifiles, LazUTF8, settings1, fileutil,
-  Translations, packets1, process;
+  Translations, packets1, process, LCLIntf;
 type
 
   TSaveMode = (None, Setting, All);
