@@ -20,8 +20,8 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MinorVersionNr Value="1"/>
-      <RevisionNr Value="3"/>
-      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.3.0"/>
+      <RevisionNr Value="4"/>
+      <StringTable CompanyName="sdtp" FileDescription="Merge TS files" InternalName="mergets" LegalCopyright="bb - sdtp" LegalTrademarks="bb - sdtp" OriginalFilename="mergets.exe" ProductName="mergets" ProductVersion="0.1.4.0"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>

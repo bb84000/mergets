@@ -105,6 +105,7 @@ type
     sCopyFile, sLastFilePCR, sJoinFile, sMergeComplete, sMergedFile: String;
     StreamsList: TStringList;
     aElementStream: Array of TElem_Stream;
+    tssizfirst: Int64;
     procedure make_crc_table;
     function crc32_block(crc: Cardinal; pData: PByte;blk_len: Integer): Cardinal;
     procedure Initialize;
@@ -581,11 +582,9 @@ end;
 procedure TFMergeTS.SBtnMergeClick(Sender: TObject);
 var
   Mypak: TSPacket;
-
   pcrbase, lastpcr: Int64;
   tsread, tspos: Int64;
   pcrbeg: Boolean;
-
   tssize, filesize: Int64;
   beginpos, endpos : Int64;
   progress2 : LongInt;
@@ -596,6 +595,7 @@ var
   pcrtime: Int64;
   StartTime, EndTime : TDatetime;
   hms: String;
+  TS2 : Boolean;
 begin
   // if merged files exists, ask to delete
   if FileExists(EMergedTS.Text) then
@@ -651,7 +651,9 @@ begin
           exit;
         end;
       end else Mypak.Readdata(filtyp);
-      if (filtyp=TS) then
+      if tssizfirst > 6000000 then TS2:= True
+      else TS2:= False;
+      if (filtyp=TS) and (not TS2) then
       begin
       if Mypak.afc > 1 then   //if adaptation field
       begin
@@ -672,7 +674,8 @@ begin
 	end;
       end;
       end;
-      if ((y=0) or pcrbeg or (filtyp=MTS)) then fos.write(Mypak.data, Mypak.ts_length);
+      if ((y=0) or pcrbeg or (filtyp=MTS) or TS2) then
+      fos.write(Mypak.data, Mypak.ts_length);
       tspos:= tspos+tsread;
       if  (x mod 200) = 0 then
       begin
@@ -682,7 +685,7 @@ begin
       end;
     end;
     ProgressBar1.position:= 100;
-    if filtyp= TS then
+    if (filtyp=TS) and (not TS2)  then
     begin
       lastpcr:= pcrbase;
       t := (lastpcr div 90)/ MSecsPerDay;
@@ -820,8 +823,9 @@ begin
   EMergedTS.text:= ChangeFileExt(EMergedTS.text, filext);
   Application.ProcessMessages;
   // Now analyze the file
-
   tssize:= fts.Size div Mypak.ts_length;
+  tssizfirst:= tssize;
+  Application.ProcessMessages;
   fts.Seek(0, soBeginning);
   tsread:= 0;
   tspos:= 0;

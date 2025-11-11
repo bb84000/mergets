@@ -12,5 +12,6 @@ Metronic 441701 UHD S1 4K (TS)
 SEDEA SNT-2002 HD (MTS)
 Strong 8211 et similaires (TS)
 Strong 8222 et similaires (MTS)
+CGV e-Etimo V2 et Etimo FP-3 HEVC H265 HD
 
 Plus de détails sur le wiki du programme sur https://www.github.com/84000/mergets
