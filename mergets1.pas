@@ -651,7 +651,7 @@ begin
           exit;
         end;
       end else Mypak.Readdata(filtyp);
-      if tssizfirst > 6000000 then TS2:= True
+      if (tssizfirst > 6000000) and (filtyp=TS) then TS2:= True
       else TS2:= False;
       if (filtyp=TS) and (not TS2) then
       begin

@@ -79,8 +79,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="647"/>
-        <CursorPos X="19" Y="688"/>
+        <TopLine Value="626"/>
+        <CursorPos X="48" Y="654"/>
         <UsageCount Value="73"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -365,15 +365,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="587" Column="9" TopLine="569"/>
-      </Position>
-      <Position>
-        <Filename Value="mergets1.pas"/>
-        <Caret Line="627" Column="8" TopLine="610"/>
-      </Position>
+    <JumpHistory HistoryIndex="28">
       <Position>
         <Filename Value="mergets1.pas"/>
         <Caret Line="625" Column="23" TopLine="619"/>
@@ -485,6 +477,10 @@
       <Position>
         <Filename Value="mergets1.pas"/>
         <Caret Line="598" Column="17" TopLine="598"/>
+      </Position>
+      <Position>
+        <Filename Value="mergets1.pas"/>
+        <Caret Line="612" Column="15" TopLine="609"/>
       </Position>
     </JumpHistory>
     <RunParams>
